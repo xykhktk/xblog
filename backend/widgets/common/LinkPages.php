@@ -8,7 +8,7 @@
  * 上班偷偷打酱油 改写LinkPager
  */
 
-namespace backend\widgets\commen;
+namespace backend\widgets\common;
 
 use yii\helpers\Html;
 use yii\widgets\LinkPager;

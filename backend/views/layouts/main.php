@@ -40,9 +40,10 @@ $this->registerJs('jQuery(document).ready(function() {
 
             <!-- BEGIN LOGO -->
 
-            <a class="brand" href="index.html">
+            <a class="brand" href="<?=Url::home()?>">
 
-                <img src="statics/image/logo.png" alt="logo">
+               <!-- <img src="statics/image/logo.png" alt="logo">-->
+                <img src="<?=(Url::home()).'/statics/image/logo.png'?>" alt="logo">
 
             </a>
 
@@ -52,7 +53,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
             <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 
-                <img src="statics/image/menu-toggler.png" alt="">
+                <img src="<?=Url::base().'/statics/image/menu-toggler.png'?>" alt="">
 
             </a>
 
@@ -146,7 +147,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="statics/image/avatar2.jpg" alt=""></span>
+                                <span class="photo"><img src="<?=Url::base().'/statics/image/avatar2.jpg'?>" alt=""></span>
 
 								<span class="subject">
 
@@ -288,7 +289,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-                        <img alt="" src="statics/image/avatar1_small.jpg">
+                        <img alt="" src="<?=Url::base().'/statics/image/avatar1_small.jpg'?>">
 
                         <span class="username" user-id="<?=Yii::$app->user->identity->id ?>"> <?=Yii::$app->user->identity->username ?> </span>
 
@@ -395,7 +396,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <i class="icon-cogs"></i>
 
-                    <span class="title">站点配置</span>
+                    <span class="title">设置</span>
 
                     <span class="selected"></span>
 
@@ -415,9 +416,9 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <li>
 
-                        <a href="layout_horizontal_menu2.html">
+                        <a href="<?=Url::to(['category/index'])?>">
 
-                            Horzontal Menu 2</a>
+                            文章分类管理</a>
 
                     </li>
 
@@ -611,7 +612,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
 
-                    <h3 class="page-title">
+                    <!--<h3 class="page-title">
 
                         Blank Page <small>blank page</small>
 
@@ -639,7 +640,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                         <li><a href="#">Blank Page</a></li>
 
-                    </ul>
+                    </ul>-->
 
                     <!-- END PAGE TITLE & BREADCRUMB-->
 
