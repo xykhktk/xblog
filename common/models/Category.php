@@ -34,6 +34,7 @@ class Category extends ActiveRecord{
             if($this->isNewRecord){
                $this->date = time();
             }
+            return true;    //漏掉这一句，导致save()不成功！！
         }
         return false;
     }

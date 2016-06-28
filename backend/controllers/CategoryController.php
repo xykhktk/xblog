@@ -14,21 +14,22 @@ use Yii;
 class CategoryController extends Controller{
 
     public function actionIndex(){
-        $pagination = new Pagination();
-        return $this->render('index',['result'=>[],'pagination'=>$pagination]);
+        $model = Category::find();
+        $pagination = new Pagination(['totalCount'=>$model->count(),'pageSize'=>10]);
+        $result = $model->offset($pagination->offset)->limit($pagination->limit)->all();
+        return $this->render('index',['result'=>$result,'pagination'=>$pagination]);
     }
 
 
     public function actionAdd(){
         $model = new Category();
-        $data[] = '';
-
-        return \yii\helpers\Json::encode(array('data' => $data));
+        //return \yii\helpers\Json::encode(array('data' => $data));
 
         if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()){
             Yii::$app->session->setFlash('sucess','添加文章分类成功');
             return $this->redirect(['index']);
         }
+
         return $this->render('add',['model'=> $model]);
 
     }
