@@ -8,7 +8,7 @@ use common\models\Category;
     <div class="form-group">
         <?=Html::label('分类：' , 'pid' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
-            <?=Html::activeDropDownList($model , 'pid' , ['0' => '父类'], ['class' => 'form-control width_auto span6'])?>
+            <?=Html::activeDropDownList($model , 'pid' , Category::getParent(), ['class' => 'form-control width_auto span6'])?>
             <?=Html::error($model , 'pid')?>
         </div>
     </div>

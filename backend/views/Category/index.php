@@ -4,7 +4,13 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\widgets\common\LinkPages;
 use yii\widgets\Breadcrumbs;
+use common\models\Category;
+use backend\assets\AppAsset;
 
+AppAsset::register($this);
+$this->registerJsFile('@web/statics/js/index-list.js',['depends' => 'yii\web\JqueryAsset']);
+
+$categorys = Category::getParent();
 ?>
 <?=Breadcrumbs::widget([
     'homeLink' => ['label' => '后台管理>>'],
@@ -28,7 +34,7 @@ use yii\widgets\Breadcrumbs;
     <?php }?>
     <p class="text-right">
         <a class="btn btn-primary btn-middle" href="<?=Url::to(['add'])?>">添加</a>
-        <a id="delete-btn" class="btn btn-primary btn-middle">删除</a>
+        <a id="delete-btn" class="btn btn-primary btn-middle" >删除</a>
     </p>
     <?=Html::beginForm(['delete'] , 'post'  , ['id' => 'dltForm'])?>
     <table class="table table-hover">
@@ -50,7 +56,7 @@ use yii\widgets\Breadcrumbs;
                 <td><?=isset($categorys[$value['pid']]) ? $categorys[$value['pid']] : '无';?></td>
                 <td><?=$value['sort_order']?></td>
                 <td><?=$value['status'] == 1 ? '开启' : '禁用';?></td>
-                <td><a href="<?=Url::to(['edit' , 'id' => $value['id']])?>" title="编辑" class="data_op data_edit"></a> | <a href="javascript:void(0);" title="删除" class="data_op data_delete"></a></td>
+                <td><a href="<?=Url::to(['edit' , 'id' => $value['id']])?>" title="编辑" class="data_op data_edit">编辑</a> | <a href="javascript:void(0);" title="删除" class="data_op data_delete">删除</a></td>
             </tr>
         <?php }?>
         </tbody>
