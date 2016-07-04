@@ -405,14 +405,29 @@ $this->registerJs('jQuery(document).ready(function() {
                 </a>
 
                 <ul class="sub-menu">
-
                     <li>
-
                         <a href="<?=Url::to(['authitem/index'])?>">
-
                             角色/权限管理</a>
-
                     </li>
+                </ul>
+
+            </li>
+
+            <li class="">
+
+                <a href="javascript:;">
+
+                    <i class="icon-cogs"></i>
+
+                    <span class="title">文章管理</span>
+
+                    <span class="selected"></span>
+
+                    <span class="arrow open"></span>
+
+                </a>
+
+                <ul class="sub-menu">
 
                     <li>
 
@@ -424,9 +439,9 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <li>
 
-                        <a href="layout_promo.html">
+                        <a href="<?=Url::to(['article/index'])?>">
 
-                            Promo Page</a>
+                            文章列表</a>
 
                     </li>
 
@@ -440,7 +455,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <i class="icon-bookmark-empty"></i>
 
-                    <span class="title">系统用户</span>
+                    <span class="title">用户管理</span>
 
                     <span class="arrow "></span>
 

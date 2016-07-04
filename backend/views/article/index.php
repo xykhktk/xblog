@@ -13,9 +13,9 @@ $this->registerJsFile('@web/statics/js/index-list.js',['depends' => 'yii\web\Jqu
 $categorys = Category::getParent(); //注意模型的静态可以在页面中使用
 ?>
 <?=Breadcrumbs::widget([
-    'homeLink' => ['label' => '后台管理>>'],
+    'homeLink' => ['label' => '后台管理-'],
     'links' => [
-        ['label' => '文章分类列表','template' => '<li>{link}</li>','url' => ['category/index']]
+        ['label' => '文章列表','template' => '<li>{link}</li>']
     ]
 ])
 ?>

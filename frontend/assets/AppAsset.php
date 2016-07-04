@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
         'statics/css/Font-Awesome/css/font-awesome.min.css',
     ];
     public $js = [
-        'statics/js/test.js',
+        /*'statics/js/test.js',*/
     ];
     public $depends = [ //这是继承Bootstrap.css之类的文件
         'yii\web\YiiAsset',

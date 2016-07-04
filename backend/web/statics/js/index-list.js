@@ -8,9 +8,9 @@ $(function(){
 		}
 	});
 
-	$(".data_delete").click(function(){
-		$("#dltForm").find('input[type=checkbox]').prop('checked' , false);
-		$(this).parent().parent().find('input[type=checkbox]').prop('checked' , true);
-		$("#delete-btn").click();
+	$(".data_delete").click(function(){	//点击某一行的“删除”
+		$("#dltForm").find('input[type=checkbox]').prop('checked' , false);	//清空所有的checkbox
+		$(this).parent().parent().find('input[type=checkbox]').prop('checked' , true);//本行的checkbox设置为true
+		$("#delete-btn").click();	//触发
 	});
 });

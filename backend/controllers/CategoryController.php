@@ -37,7 +37,7 @@ class CategoryController extends Controller{
         $select = Yii::$app->request->post('selected');
         //return \yii\helpers\Json::encode(array('data' => $select));
         if (Category::deleteIn($select)){
-            Yii::$app->session->setFlash('suceess' ,'删除成功');
+            Yii::$app->session->setFlash('success' ,'删除成功');
         }else{
             Yii::$app->session->setFlash('error' ,'删除失败');
         }
