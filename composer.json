@@ -13,16 +13,16 @@
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
-    "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": ">=2.0.6",
-        "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-        "xj/yii2-uploadify-widget": "~2.0.0",
-        "yiisoft/yii2-imagine": "~2.0.0",
-        "cliff363825/yii2-kindeditor": "*"
-    },
-    "require-dev": {
+        "require": {
+            "php": ">=5.4.0",
+            "yiisoft/yii2": ">=2.0.6",
+            "yiisoft/yii2-bootstrap": "*",
+            "yiisoft/yii2-swiftmailer": "*",
+            "xj/yii2-uploadify-widget": "~2.0.0",
+            "yiisoft/yii2-imagine": "~2.0.0",
+            "cliff363825/yii2-kindeditor": "*"
+        },
+        "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",

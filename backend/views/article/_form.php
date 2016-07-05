@@ -127,10 +127,12 @@ EOF
     <div class="form-group">
         <?=Html::label('内容：' , 'content' , ['class' =>'control-label col-sm-2 col-md-1'])?>
             <?= \cliff363825\kindeditor\KindEditorWidget::widget([
-                'name' => '内容',
+               /* 'name' => '内容',*/
+                'model' => $model,
+                'attribute' => 'content',
                 'options' => ['content'], // html attributes
                 'clientOptions' => [
-                    'width' => '680px',
+                    'width' => '100%',
                     'height' => '350px',
                     'themeType' => 'default', // optional: default, simple, qq
                     'langType' =>  'zh-CN', // optional: ar, en, ko, ru, zh-CN, zh-TW

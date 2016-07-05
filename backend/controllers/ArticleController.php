@@ -51,16 +51,16 @@ class ArticleController extends Controller
                     'maxSize' => 1 * 1024 * 1024, //file size
                 ],
                 'beforeValidate' => function (UploadAction $action) {
-                    //throw new Exception('test error');
-                },
+            //throw new Exception('test error');
+        },
                 'afterValidate' => function (UploadAction $action) {},
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
-                    $action->output['fileUrl'] = $action->getWebUrl();
-                    $action->getFilename(); // "image/yyyymmddtimerand.jpg"
-                    $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
-                    $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
-                },
+            $action->output['fileUrl'] = $action->getWebUrl();
+            $action->getFilename(); // "image/yyyymmddtimerand.jpg"
+            $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
+            $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
+        },
             ],
         ];
     }
