@@ -18,4 +18,9 @@ class Article extends ActiveRecord
         return '{{%article}}';
     }
 
+    public static function deleteIn($selected){
+        return self::deleteAll(['id' => $selected]);
+    }
+
+
 }

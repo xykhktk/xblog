@@ -31,6 +31,7 @@ $this->registerJsFile('/xblog/backend/web/statics/js/bootstrap.js',[ 'depends'=>
     <div class="form-group">
         <?=Html::label('图片：' , 'image' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
+            <img src="<?=Url::base().'/statics/image/logo_azteca.jpg'?>" alt="pic" height=20px />
             <?php
             echo Html::fileInput('test', NULL, ['id' => 'test']);
             echo Uploadify::widget([
@@ -84,7 +85,7 @@ EOF
     </div>
 
     <div class="form-group">
-        <?=Html::label('次数：' , 'count' , ['class' =>'control-label col-sm-2 col-md-1'])?>
+        <?=Html::label('浏览次数：' , 'count' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
             <?=Html::activeInput('text' , $model , 'count' , ['class' => 'form-control input span6'])?>
             <?=Html::error($model , 'count')?>
@@ -122,6 +123,24 @@ EOF
             <?=Html::error($model , 'status')?>
         </div>
     </div>
+
+    <div class="form-group">
+        <?=Html::label('内容：' , 'content' , ['class' =>'control-label col-sm-2 col-md-1'])?>
+            <?= \cliff363825\kindeditor\KindEditorWidget::widget([
+                'name' => '内容',
+                'options' => ['content'], // html attributes
+                'clientOptions' => [
+                    'width' => '680px',
+                    'height' => '350px',
+                    'themeType' => 'default', // optional: default, simple, qq
+                    'langType' =>  'zh-CN', // optional: ar, en, ko, ru, zh-CN, zh-TW
+                    'uploadJson' => Url::to(['upload'])
+                ],
+            ]); ?>
+            <?=Html::error($model , 'content')?>
+    </div>
+</div>
+
     <div class="form-group">
         <div style="margin-top:10px" class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1">
             <button class="btn btn-primary" type="submit">提交</button>

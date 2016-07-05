@@ -55,7 +55,7 @@ $categorys = Category::getParent(); //注意模型的静态可以在页面中使
                 <td><?=$value['name']?></td>
                 <td><?=isset($categorys[$value['pid']]) ? $categorys[$value['pid']] : '无';?></td>
                 <td><?=$value['sort_order']?></td>
-                <td><?=$value['status'] == 1 ? '开启' : '禁用';?></td>
+                <td><?=$value['status'] == 1 ? '显示' : '删除';?></td>
                 <td><a href="<?=Url::to(['edit' , 'id' => $value['id']])?>" title="编辑" class="data_op data_edit">编辑</a> | <a href="javascript:void(0);" title="删除" class="data_op data_delete">删除</a></td>
             </tr>
         <?php }?>

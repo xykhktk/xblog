@@ -11,6 +11,8 @@ namespace backend\controllers;
 use yii\web\Controller;
 use common\models\Article;
 use xj\uploadify\UploadAction;
+use yii\data\Pagination;
+use Yii;
 
 
 class ArticleController extends Controller
@@ -64,13 +66,36 @@ class ArticleController extends Controller
     }
 
     public function actionIndex(){
-        return $this->render('index',['result' => [] , 'pagination' => new \yii\data\Pagination()]);
+        $model = Article::find();
+        $paginaton = new Pagination(['totalCount' => $model->count() , 'pageSize' => 10]);
+        $result = $model->offset($paginaton->offset)->limit($paginaton->limit)->all();
+        return $this->render('index',['result' => $result , 'pagination' => $paginaton]);
     }
 
 
     public function actionAdd(){
         $model = new Article();
+        if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()){
+            Yii::$app->session->setFlash('success','add sucess');
+            return $this->redirect(['index']);
+        }else{
+            Yii::$app->session->setFlash('failed' ,'add failed');
+        }
         return $this->render('add',['model' => $model]);
+    }
+
+    public  function actionDelete(){
+        $select = Yii::$app->request->post('selected');
+        if(Article::deleteIn($select)){
+            Yii::$app->session->setFlash('success','delete sucess');
+        }else{
+            Yii::$app->session->setFlash('failed' ,'delete failed');
+        }
+        return $this->redirect(['index']);
+    }
+
+    public function actionEdit(){
+
     }
 
 }

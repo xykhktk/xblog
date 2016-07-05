@@ -30,7 +30,7 @@ class AppAsset extends AssetBundle
         'statics/css/site.css',
     ];
     public $js = [
-        'statics/js/jquery-1.10.1.min.js',
+        /*'statics/js/jquery-1.10.1.min.js',*/
         'statics/js/jquery-migrate-1.2.1.min.js',
         'statics/js/jquery-ui-1.10.1.custom.min.js',
         'statics/js/bootstrap.min.js',
