@@ -30,13 +30,19 @@ function(file, data, response) {
         console.log(data.msg);
     } else {
         console.log(data.fileUrl);
+        console.log(data.fileFilename);
+        console.log(data.SavePath);
+        $("#a").append('<img  width="100" src="'+ data.fileUrl + '" />');
     }
+   
 }
 EOF
         ),
     ]
 ]);
 ?>
+
+<div id="a"></div>
 
 <?= \cliff363825\kindeditor\KindEditorWidget::widget([
     'name' => 'content',

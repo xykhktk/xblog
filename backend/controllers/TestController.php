@@ -54,6 +54,8 @@ class TestController extends Controller
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
                     $action->output['fileUrl'] = $action->getWebUrl();
+                    $action->output['fileFilename'] = $action->getFilename();
+                    $action->output['SavePath'] = $action->getSavePath();
                     $action->getFilename(); // "image/yyyymmddtimerand.jpg"
                     $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
                     $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
