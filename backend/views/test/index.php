@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\web\JsExpression;
 use xj\uploadify\Uploadify;
 use backend\assets\AppAsset;
+use yii\helpers\Url;
 
 //外部TAG
 AppAsset::register($this);
@@ -52,6 +53,8 @@ EOF
         'height' => '350px',
         'themeType' => 'default', // optional: default, simple, qq
         'langType' => \cliff363825\kindeditor\KindEditorWidget::LANG_TYPE_ZH_CN, // optional: ar, en, ko, ru, zh-CN, zh-TW
+       /* 'uploadJson' => urldecode(Url::to(['test/upload'])),*/
+        'uploadJson' => Url::to(['test/upload'])
     ],
 ]); ?>
 

@@ -15,6 +15,8 @@ use yii\imagine\Image;
 
 class TestController extends Controller
 {
+
+    public $enableCsrfValidation = false;
     public function actions() {
         return [
             's-upload' => [
@@ -61,6 +63,13 @@ class TestController extends Controller
                     $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
                 },
             ],
+            'upload' => [
+                'class' => 'cliff363825\kindeditor\KindEditorUploadAction',
+                //'savePath' => '@webroot/upload',//图片保存的物理路径
+                'savePath' => 'upload',//图片保存的物理路径
+                //'saveUrl' => '@web/upload',//图片的 url
+                'maxSize' => 2097152,//图片的限制
+            ]
         ];
     }
 
