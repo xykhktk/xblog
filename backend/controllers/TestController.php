@@ -76,6 +76,12 @@ class TestController extends Controller
 
 
     public function actionIndex(){
+
+        //Yii::$app->test->test();
+        //Yii::$app->test->print_r();
+        echo Yii::$app->test->test;
+        exit();
+
         //return $this->render('index');
         $img = "@backend/web/upload/image.jpg";
 

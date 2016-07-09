@@ -13,7 +13,7 @@ use common\models\Article;
 use xj\uploadify\UploadAction;
 use yii\data\Pagination;
 use Yii;
-
+use yii\imagine\Image;
 
 class ArticleController extends Controller
 {
@@ -56,12 +56,35 @@ class ArticleController extends Controller
                 'afterValidate' => function (UploadAction $action) {},
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
-            $action->output['fileUrl'] = $action->getWebUrl();
-            $action->getFilename(); // "image/yyyymmddtimerand.jpg"
-            $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
-            $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
+            //$action->output['fileUrl'] = $action->getWebUrl();
+            //$action->getFilename(); // "image/yyyymmddtimerand.jpg"
+            //$action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
+            //$action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
+
+             $thumbnailDir = Yii::getAlias('@webroot/upload/thumbnai');
+             if(!is_dir($thumbnailDir)){
+                 @mkdir($thumbnailDir);
+             }
+                 //生成缩略图
+             $fileImg = substr($action->getFilename(),5) ; //在我的版本中，$action->getFilename()的值是 46/6e/466eaf225174e2206083f125319036bbce842ef3.jpg
+             //而在视频中，是类似 466eaf225174e2206083f125319036bbce842ef3.jpg 这样的地址
+             //所以在保存缩略图时，如果不去掉前面的46/6e，就会保存错误，因为这个插件不会自动创建文件夹。
+             $suffixPoint = strrpos($fileImg,'.');
+             $thumbFileName = substr($fileImg,0,$suffixPoint).'-100x100'.substr($fileImg,$suffixPoint);
+             Image::thumbnail($action->getSavePath(),100,100,\Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)->save($thumbnailDir.$thumbFileName,['quality' => '100']);
+
+             $action->output['thumbImg'] = Yii::getAlias('@web/upload/thumbnai') .$thumbFileName;
+             $action->output['img'] = substr($fileImg,1) ;
+             //$action->output['thumbnailDir'] = $thumbnailDir;
+             //$action->output['thumbFileName'] = $thumbFileName;
+             //$action->output['fileImg'] = $fileImg;
         },
             ],
+            'upload' => [
+                'class' => 'cliff363825\kindeditor\KindEditorUploadAction',
+                'savePath' => 'upload',//图片保存的物理路径
+                'maxSize' => 2097152,//图片的限制
+            ]
         ];
     }
 
@@ -75,12 +98,17 @@ class ArticleController extends Controller
 
     public function actionAdd(){
         $model = new Article();
+        if(Yii::$app->request->isPost){
+            print_r(Yii::$app->request->post());
+            exit();
+        }
+        /*$model = new Article();
         if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()){
             Yii::$app->session->setFlash('success','add sucess');
             return $this->redirect(['index']);
         }else{
             Yii::$app->session->setFlash('failed' ,'add failed');
-        }
+        }*/
         return $this->render('add',['model' => $model]);
     }
 

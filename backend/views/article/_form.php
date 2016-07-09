@@ -31,12 +31,12 @@ $this->registerJsFile('/xblog/backend/web/statics/js/bootstrap.js',[ 'depends'=>
     <div class="form-group">
         <?=Html::label('图片：' , 'image' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
-            <img src="<?=Url::base().'/statics/image/logo_azteca.jpg'?>" alt="pic" height=20px />
+            <img  id="thumbnail" src="<?=Url::base().'/statics/image/no_image.jpg'?>" alt="pic" height='20' />
             <?php
-            echo Html::fileInput('test', NULL, ['id' => 'test']);
+            echo Html::activeFileInput($model,'image', ['id' => 'imageupload']);
             echo Uploadify::widget([
                 'url' => \yii\helpers\Url::to(['s-upload']),
-                'id' => 'test',
+                'id' => 'imageupload',
                 'csrf' => true,
                 'renderTag' => false,
                 'jsOptions' => [
@@ -54,7 +54,15 @@ EOF
                     if (data.error) {
                         console.log(data.msg);
                     } else {
-                        console.log(data.fileUrl);
+                        //console.log(data.fileUrl);
+                        //console.log(data.thumbnail);
+                        console.log(data.thumbImg);
+                        console.log(data.img);
+                        //console.log("thumbnailDir:  " + data.thumbnailDir);
+                        //console.log("thumbFileName:  " + data.thumbFileName);
+                        //console.log("fileImg:  " + data.fileImg);
+                        $("#thumbnail").attr('src',data.thumbImg);
+                        $("input[name='Article[image]']").val(data.img);
                     }
                 }
 EOF
@@ -127,8 +135,8 @@ EOF
     <div class="form-group">
         <?=Html::label('内容：' , 'content' , ['class' =>'control-label col-sm-2 col-md-1'])?>
             <?= \cliff363825\kindeditor\KindEditorWidget::widget([
-               /* 'name' => '内容',*/
-                'model' => $model,
+               //'name' => '内容',
+                'model' => $model, //model形式
                 'attribute' => 'content',
                 'options' => ['content'], // html attributes
                 'clientOptions' => [
