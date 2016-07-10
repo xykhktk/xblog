@@ -22,8 +22,10 @@ class ArticleController extends Controller
         return [
             's-upload' => [
                 'class' => UploadAction::className(),
-                'basePath' => '@webroot/upload',
-                'baseUrl' => '@web/upload',
+                //'basePath' => '@webroot/web/upload',
+                'basePath' => '@frontend/web/upload',
+                //'baseUrl' => '@web/upload',
+                'baseUrl' => '@frontendUrl/web/upload',
                 'enableCsrf' => true, // default
                 'postFieldName' => 'Filedata', // default
                 //BEGIN METHOD
@@ -38,13 +40,13 @@ class ArticleController extends Controller
                 },
                 //END CLOSURE BY-HASH
                 //BEGIN CLOSURE BY TIME
-                'format' => function (UploadAction $action) {
+                /*'format' => function (UploadAction $action) { //将会在upload文件夹下再生成2个文件夹。我不需要这样。
                     $fileext = $action->uploadfile->getExtension();
                     $filehash = sha1(uniqid() . time());
                     $p1 = substr($filehash, 0, 2);
                     $p2 = substr($filehash, 2, 2);
                     return "{$p1}/{$p2}/{$filehash}.{$fileext}";
-                },
+                },*/
                 //END CLOSURE BY TIME
                 'validateOptions' => [
                     'extensions' => ['jpg', 'png'],
@@ -61,12 +63,12 @@ class ArticleController extends Controller
             //$action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
             //$action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
 
-             $thumbnailDir = Yii::getAlias('@webroot/upload/thumbnai');
+             /*$thumbnailDir = Yii::getAlias('@webroot/upload/thumbnai');
              if(!is_dir($thumbnailDir)){
                  @mkdir($thumbnailDir);
-             }
+             }*/
                  //生成缩略图
-             $fileImg = substr($action->getFilename(),5) ; //在我的版本中，$action->getFilename()的值是 46/6e/466eaf225174e2206083f125319036bbce842ef3.jpg
+            /* $fileImg = substr($action->getFilename(),5) ; //在我的版本中，$action->getFilename()的值是 46/6e/466eaf225174e2206083f125319036bbce842ef3.jpg
              //而在视频中，是类似 466eaf225174e2206083f125319036bbce842ef3.jpg 这样的地址
              //所以在保存缩略图时，如果不去掉前面的46/6e，就会保存错误，因为这个插件不会自动创建文件夹。
              $suffixPoint = strrpos($fileImg,'.');
@@ -74,15 +76,40 @@ class ArticleController extends Controller
              Image::thumbnail($action->getSavePath(),100,100,\Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)->save($thumbnailDir.$thumbFileName,['quality' => '100']);
 
              $action->output['thumbImg'] = Yii::getAlias('@web/upload/thumbnai') .$thumbFileName;
-             $action->output['img'] = substr($fileImg,1) ;
+             $action->output['img'] = substr($fileImg,1) ;*/
              //$action->output['thumbnailDir'] = $thumbnailDir;
              //$action->output['thumbFileName'] = $thumbFileName;
              //$action->output['fileImg'] = $fileImg;
+
+             /*$thumbnailDir = Yii::getAlias('@frontend/web/upload/thumbnai/');
+             if(!is_dir($thumbnailDir)){
+                   @mkdir($thumbnailDir);
+              }
+
+             $fileImg = $action->getFilename() ; //。
+             $suffixPoint = strrpos($fileImg,'.');
+             $thumbFileName = substr($fileImg,0,$suffixPoint).'-100x100'.substr($fileImg,$suffixPoint);
+             Image::thumbnail('@frontend/web/upload/'.$fileImg,100,100,\Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)->save($thumbnailDir.$thumbFileName,['quality' => '100']);
+
+             $action->output['thumbImg'] = Yii::getAlias('@frontendUrl/web/upload/thumbnai/') .$thumbFileName;
+             $action->output['img'] =$fileImg ;*/
+
+             //$action->output['thumbnailDir'] = $thumbnailDir;
+             //$action->output['thumbFileName'] = $thumbFileName;
+             //$action->output['fileImg'] = $fileImg;
+
+             $action->output['thumbImg'] = Yii::$app->utils->createThumbnail($action->getFilename(),100,100);
+             //注意这里utils 要和Dcommon\config\main.php 保持一致
+             $action->output['img'] = $action->getFilename();
+             //$action->output['thumbImg'] = '';
+             //$action->output['img'] ='';
         },
             ],
             'upload' => [
                 'class' => 'cliff363825\kindeditor\KindEditorUploadAction',
-                'savePath' => 'upload',//图片保存的物理路径
+                'savePath' => '/web/upload',//图片保存的物理路径
+                'basePath' => '@frontend',
+                'baseUrl' => '@frontendUrl',
                 'maxSize' => 2097152,//图片的限制
             ]
         ];

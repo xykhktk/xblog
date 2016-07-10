@@ -10,6 +10,9 @@ return [
             'name' => 'xyk',
             'favor' => 'yii2',
             'test' => 'a'
+        ],
+        'utils' => [
+            'class' => 'common\components\Utils'
         ]
     ],
 ];
