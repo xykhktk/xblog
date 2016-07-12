@@ -2,8 +2,6 @@
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
-
-
 ?>
 <?=Breadcrumbs::widget([
     'homeLink' => ['label' => '后台管理'],
@@ -14,5 +12,5 @@ use yii\widgets\Breadcrumbs;
 ])
 ?>
 
-    <?= $this->render('_form', ['model' => $model ]) ?>
+    <?= $this->render('_form', ['model' => $model ,'category' => $category]) ?>
 

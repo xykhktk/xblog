@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 class Category extends ActiveRecord{
 
     public  static function  tableName(){
-        return '{{%category}}';
+        return '{{%category}}'; //前面的%表示前缀
     }
 
     public  function behaviors(){
@@ -59,6 +59,29 @@ class Category extends ActiveRecord{
     public static function deleteIn($select){
         $select = array_map('intval' ,$select);
         return self::deleteAll(['id' => $select]);
+    }
+
+    /**
+     * 获取父类和子类并且生成一个数组
+     * @return array
+     */
+    public static function getAllCategorys(){
+        $result = [];
+        $all =  self::find()->orderBy("pid asc")->asArray()->all();
+        foreach($all as $v){
+            if($v['pid'] == 0){
+                $result[$v['id']] = $v;
+                $result[$v['id']]['child'] = [];
+            }else if($result[$v['pid']]){
+                $result[$v['pid']]['child'][] = $v;
+            }
+        }
+        return $result;
+    }
+
+    public static function getCategory(){
+        //return self::find()->orderBy('id')->asArray()->all();
+        return ArrayHelper::index(self::find()->select('id,name')->asArray()->all(), 'id');//最后的参数；把id作为下标
     }
 
 }

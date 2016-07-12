@@ -667,7 +667,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="row-fluid">
+            <div class="row-fluid" style="padding-bottom: 5%">
 
                 <!--<div class="span12">
 
@@ -695,7 +695,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
     <!-- BEGIN FOOTER -->
 
-    <div class="footer">
+<!--    <div class="footer">
 
     <div class="footer-inner">
 
@@ -713,11 +713,12 @@ $this->registerJs('jQuery(document).ready(function() {
 
     </div>
 
-</div>
+</div>-->
 
     <!-- END FOOTER -->
 
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
 
 <?php $this->endBody() ?>
 </body>

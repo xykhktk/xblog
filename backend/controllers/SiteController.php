@@ -55,7 +55,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $msg = '123123';
+        $msg = 'main page';
         return $this->render('index',['msg' => $msg]);
     }
 

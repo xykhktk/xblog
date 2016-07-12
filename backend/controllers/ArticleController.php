@@ -14,6 +14,7 @@ use xj\uploadify\UploadAction;
 use yii\data\Pagination;
 use Yii;
 use yii\imagine\Image;
+use common\models\Category;
 
 class ArticleController extends Controller
 {
@@ -116,41 +117,56 @@ class ArticleController extends Controller
     }
 
     public function actionIndex(){
-        $model = Article::find();
+        /*$model = Article::find();
         $paginaton = new Pagination(['totalCount' => $model->count() , 'pageSize' => 10]);
         $result = $model->offset($paginaton->offset)->limit($paginaton->limit)->all();
-        return $this->render('index',['result' => $result , 'pagination' => $paginaton]);
+        $categorys = Category::getCategory();
+        print_r($categorys); print_r($result); exit();
+        return $this->render('index',['result' => $result , 'pagination' => $paginaton,'categorys' => $categorys]);*/
+        $result = (new \yii\db\Query())->select("*")->from("x_article a")->leftJoin("x_category c","a.cid = c.id")->all();
+        $paginaton = new Pagination(['totalCount' => count($result) , 'pageSize' => 10]);
+        //print_r($result); exit();
+        return $this->render('index',['result' => $result , 'pagination' => $paginaton,]);
     }
 
 
     public function actionAdd(){
-        $model = new Article();
+       /* $model = new Article();
         if(Yii::$app->request->isPost){
-            print_r(Yii::$app->request->post());
             exit();
-        }
-        /*$model = new Article();
+        }*/
+        $model = new Article();
         if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()){
             Yii::$app->session->setFlash('success','add sucess');
             return $this->redirect(['index']);
         }else{
             Yii::$app->session->setFlash('failed' ,'add failed');
-        }*/
-        return $this->render('add',['model' => $model]);
+        }
+        //print_r(Category::getAllCategorys());exit();
+        return $this->render('add',['model' => $model ,'category' => Category::getAllCategorys()]);
     }
 
     public  function actionDelete(){
         $select = Yii::$app->request->post('selected');
         if(Article::deleteIn($select)){
-            Yii::$app->session->setFlash('success','delete sucess');
+            Yii::$app->session->setFlash('success','删除文章成功');
         }else{
-            Yii::$app->session->setFlash('failed' ,'delete failed');
+            Yii::$app->session->setFlash('failed' ,'删除文章失败');
         }
         return $this->redirect(['index']);
     }
 
-    public function actionEdit(){
-
+    public function actionEdit($id){
+        $iid = (int)$id;
+        $model = Article::findOne($iid);   //注意跟find（）不同
+        if($model){
+            if( Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()){
+                Yii::$app->session->setFlash('success','编辑文章成功');
+                return $this->redirect(['index']);
+            }
+            return $this->render('edit',['model' => $model,'category' => Category::getAllCategorys()]);
+        }
+        return $this->render('index');
     }
 
 }

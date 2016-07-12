@@ -12,7 +12,7 @@ $this->registerJsFile('/xblog/backend/web/statics/js/bootstrap.js',[ 'depends'=>
 ?>
 <div class="inner-container">
     <?=Html::beginForm('' , 'post' , ['enctype' => 'multipart/form-data' , 'class' => '' , 'id' =>'addForm' ])?>
-    <div class="form-group">
+    <div class="form-group" >
         <?=Html::label('名称*：' , 'title' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
             <?=Html::activeInput('text' , $model , 'title' , ['class' => 'form-control input span6'])?>
@@ -23,7 +23,16 @@ $this->registerJsFile('/xblog/backend/web/statics/js/bootstrap.js',[ 'depends'=>
     <div class="form-group">
         <?=Html::label('分类：' , 'cid' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
-            <?=Html::activeDropDownList($model , 'cid' , [ 0 => 'all'] , ['class' => 'form-control width_auto span6'])?>
+            <select name="Article[cid]" class="form-control width_auto span6">
+                <option value="0">请选择一个分类</option>
+                <?php foreach ( $category as $item) { ?>
+                <optgroup label="<?= $item['name']?>"></optgroup>
+                    <?php foreach ($item['child'] as $child){ ?>
+                        <option  <?=($model['cid']== $child['id']?'selected="selected"':"")?> value=<?=$child ['id']?> > <?=$child['name']?> </option>
+                    <?php } ?>
+                <?php }  ?>
+            </select>
+
             <?=Html::error($model , 'cid')?>
         </div>
     </div>
@@ -31,9 +40,10 @@ $this->registerJsFile('/xblog/backend/web/statics/js/bootstrap.js',[ 'depends'=>
     <div class="form-group">
         <?=Html::label('图片：' , 'image' , ['class' =>'control-label col-sm-2 col-md-1'])?>
         <div class="controls col-sm-10 col-md-11">
-            <img  id="thumbnail" src="<?=Url::base().'/statics/image/no_image.jpg'?>" alt="pic" height='20' />
+            <img id="thumbnail" src="<?= $model->image? \Yii::$app->utils->createThumbnail($model->image,100,100): Url::base().'/statics/image/no_image.jpg'?>" alt="pic" height='20' style="padding-bottom: 4px"/>
             <?php
-            echo Html::activeFileInput($model,'image', ['id' => 'imageupload']);
+            echo Html::fileInput('image','', ['id' => 'imageupload']);
+            echo Html::activeInput('hidden',$model,'image');
             echo Uploadify::widget([
                 'url' => \yii\helpers\Url::to(['s-upload']),
                 'id' => 'imageupload',
@@ -70,7 +80,6 @@ EOF
                 ]
             ]);
             ?>
-
             <?=Html::error($model , 'image')?>
         </div>
     </div>

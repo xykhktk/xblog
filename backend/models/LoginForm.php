@@ -15,7 +15,9 @@ class LoginForm extends Model
     public $rememberMe = true;
 
     private $_user;
-
+    const BACKEND_ADMIN_ID = 'backend_admin_id';
+    const BACKEND_ADMIN_USERNAME = 'backend_admin_username';
+    const BACKEND_ADMIN_COOKIE = 'backend_admin_cookie';
 
     /**
      * @inheritdoc
@@ -76,4 +78,23 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+
+    /**
+     *
+     */
+    public function loginByCookie(){
+        $cookie = Yii::$app->request->cookies;
+        if($cookie->has(self::BACKEND_ADMIN_COOKIE)){
+            $cookiedata = $cookie->getValue(self::BACKEND_ADMIN_COOKIE);
+            if(isset($cookiedata['id']) && isset($cookiedata['username'])){
+                $this->user = Admin::find()->where(['username' => $cookiedata['username'] , 'id' => $cookiedata['id']])->asArray()->one();
+                if ($this->user){
+                    
+                }
+            }
+        }
+
+    }
+
+
 }

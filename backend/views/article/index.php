@@ -41,7 +41,7 @@ $categorys = Category::getParent(); //注意模型的静态可以在页面中使
         <thead>
         <tr>
             <th class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked',this.checked);"></th>
-            <th>名称</th>
+            <th>标题</th>
             <th>分类</th>
             <th>排序</th>
             <th>状态</th>
@@ -52,10 +52,11 @@ $categorys = Category::getParent(); //注意模型的静态可以在页面中使
         <?php foreach($result as $value){?>
             <tr>
                 <td class="text-center"><input type="checkbox" name="selected[]" value="<?=$value['id']?>"></td>
+                <td><?=$value['title']?></td>
+                <!--<td><?/*=isset($categorys[$value['cid']]) ? $categorys[$value['cid']]['name'] : '无';*/?></td>-->
                 <td><?=$value['name']?></td>
-                <td><?=isset($categorys[$value['pid']]) ? $categorys[$value['pid']] : '无';?></td>
                 <td><?=$value['sort_order']?></td>
-                <td><?=$value['status'] == 1 ? '显示' : '删除';?></td>
+                <td><?=$value['status'] == 1 ? '开启' : '禁用';?></td>
                 <td><a href="<?=Url::to(['edit' , 'id' => $value['id']])?>" title="编辑" class="data_op data_edit">编辑</a> | <a href="javascript:void(0);" title="删除" class="data_op data_delete">删除</a></td>
             </tr>
         <?php }?>

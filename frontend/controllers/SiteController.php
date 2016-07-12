@@ -75,6 +75,12 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionBlog()
+    {
+        $this->layout = 'blog.php';
+        return $this->render('blog');
+    }
+
     /**
      * Logs in a user.
      *
