@@ -25,7 +25,7 @@ $this->registerCssFile('/xblog/frontend/web/statics/css/blog.css');
 
 ?>
 <!-- BEGIN CONTAINER -->
-<div style="background-color:#ffffee">
+<div style="background-color:#ffffff">
 <div style="padding-top:5%;padding-bottom:10%;padding-left:10%;padding-right: 10%;">
 
     <div class="container-fluid">
