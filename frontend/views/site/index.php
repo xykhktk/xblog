@@ -14,6 +14,8 @@ $this->title = 'My Yii Application';
                 <div class="content">
                     <article class="thread thread-card  article-nav" style="padding: 5px 10px;">
                         <a href="<?=Url::base(true)?>">首页</a>
+                        <?php if(!empty($currentCate) && $currentCate['pid'] != -1) echo '&gt&gt'.$currentCate['name'];?>
+                        <?php if(!empty($search) ) echo '&gt&gt'.$search;?>
                     </article>
                     <?php  foreach ($article as $a){
                         $date = explode('-',date(('Y-m-d'), $a['update_date']));
@@ -26,7 +28,7 @@ $this->title = 'My Yii Application';
                                 <span style="display:block"><?=$date['2']?></span>
                             </div>
                             <h3 class="thread-title">
-                                <a href="/site/article.html?id=29"><?=$a['title']?></a>
+                                <a href="<?=Url::to(['article','id'=>$a['id']])?>"><?=$a['title']?></a>
                             </h3>
                             <div class="thread-meta">
                                 <?=$a['author']?>&nbsp;
@@ -72,9 +74,20 @@ $this->title = 'My Yii Application';
                 <section class="card">
                     <h4>分类</h4>
                     <ul>
-                        <?php foreach ($categroy as $cid=>$i) {   ?>
+                        <?php foreach ($categroy as $cid=>$i) {
+                            $url = '';
+                            if($cid == 0){
+                                $url = Url::base(true);
+                            }else{
+                                if($i['pid'] == 0){
+                                    $url = 'jyavascript:void(0)';
+                                }else{
+                                    $url = Url::to(['index','cid'=>$cid]);
+                                }
+                            }
+                            ?>
                             <li>
-                                <a href="<?=(($cid==0)?(Url::base(true)):(Url::to(['article','id'=>$cid]))); ?>" > <?=$i['labelname']?> </a>
+                                <a href="<?=$url?>" > <?=$i['labelname']?> </a>
                             </li>
                         <?php }  ?>
 
@@ -84,15 +97,11 @@ $this->title = 'My Yii Application';
                 <section class="card">
                     <h4>热门文章</h4>
                     <ul>
+                        <?php foreach ($hotArticle as $item) {  ?>
                         <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                            <a href="/site/article.html?id=9">Coreseek(中文分词的Sphinx)分词搜索配置及其设置增量索引</a>
+                            <a href="<?=Url::to(['article','id'=>$item['id']]) ?>"><?=$item['title']?></a>
                         </li>
-                        <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                            <a href="/site/article.html?id=17">分析Nginx访问日志及写入数据库</a>
-                        </li>
-                        <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                            <a href="/site/article.html?id=21">Linux配置MongoDB</a>
-                        </li>
+                        <?php } ?>
                     </ul>
                 </section>
             </aside>

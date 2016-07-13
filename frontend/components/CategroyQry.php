@@ -18,7 +18,8 @@ class CategroyQry extends BaseDb
             0 => [
                 'id' => 0,
                 'name' => '全部',
-                'labelname' => '全部'
+                'labelname' => '全部',
+                'pid' => -1
             ]
         ];
 
@@ -28,13 +29,15 @@ class CategroyQry extends BaseDb
             $result[$cat['id']] =  [
                 'id' => $cat['id'],
                 'name' => $cat['name'],
-                'labelname' => $cat['name']
+                'labelname' => $cat['name'],
+                'pid' => $cat['pid']
             ];
             foreach ($cat['child'] as $item) {
                 $result[$item['id']] = [
                     'id' =>   $item['id'],
                     'name' =>  $item['name'],
-                    'labelname' => '&nbsp&nbsp'.$item['name']
+                    'labelname' => '&nbsp&nbsp'.$item['name'],
+                     'pid' => $item['pid']
                 ];
             }
         }

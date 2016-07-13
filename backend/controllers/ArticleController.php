@@ -166,7 +166,8 @@ class ArticleController extends Controller
             }
             return $this->render('edit',['model' => $model,'category' => Category::getAllCategorys()]);
         }
-        return $this->render('index');
+        //return $this->render('index');    //注意这里是redirect。如果用render，index页面所需要的参数，这里无法提供，就会报错
+        return $this->redirect(['index']);
     }
 
 }

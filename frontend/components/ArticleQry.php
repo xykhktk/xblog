@@ -45,4 +45,19 @@ class ArticleQry extends BaseDb
             ->where($condition)->andWhere(['status' => 1])->offset($offset)->limit($limit)->asArray()->all();
     }
 
+    public function getHotArticle($limit = 10){
+        return Article::find()->select('id,title')
+            ->where(['status' => 1])->orderBy('up DESC')->limit($limit)->asArray()->all();
+    }
+
+    public function getLikeArticleCount($title){
+        //return Article::find()->where('and',['status'=> 1])->andWhere(['like','title',$title])->count();
+        return Article::find()->where(['status'=> 1])->andWhere(['like','title',$title])->count();
+    }
+
+    public function getLikeArticle($title ,$offset = 0,$limit = 10 ){
+        return Article::find()->select('id,cid,title,description,author,count,update_date')
+            ->where(['status'=> 1])->andWhere(['like','title',$title])->limit($limit)->offset($offset)->asArray()->all();
+    }
+
 }

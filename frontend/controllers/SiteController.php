@@ -11,7 +11,7 @@ use yii\data\Pagination;
  */
 class SiteController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($cid = 0)
     {
        /* \frontend\components\ArticleQry::getInstance()->getA();
         \frontend\components\ArticleQry::getInstance()->getA();
@@ -20,13 +20,25 @@ class SiteController extends Controller
         //print_r(CategroyQry::getInstance()->getCategroys());
         //print_r(ArticleQry::getInstance()->count());
         //print_r(ArticleQry::getInstance()->getArticles());
-        $pagination = new Pagination(['totalCount' => ArticleQry::getInstance()->count() , 'pageSize' => 1]);
-        $article = ArticleQry::getInstance()->getArticles(0,$pagination->offset,$pagination->limit);
-        print_r($article);
+        print_r(ArticleQry::getInstance()->getHotArticle());
+        $categroy = CategroyQry::getInstance()->getCategroys();
+        $cid = (int)$cid;
+        $currentCate = [];
+        if($cid != 0 && !isset($categroy[$cid])){   //大于0却没有分类
+            $cid = 0;
+        }else{
+            $currentCate = $categroy[$cid];
+        }
+
+        $pagination = new Pagination(['totalCount' => ArticleQry::getInstance()->count() , 'pageSize' => 10]);
+        $article = ArticleQry::getInstance()->getArticles($cid,$pagination->offset,$pagination->limit);
+        //print_r($article);
         return $this->render('index',[
-            'categroy' => CategroyQry::getInstance()->getCategroys(),
+            'categroy' => $categroy,
             'pagination' => $pagination,
             'article' => $article,
+            'currentCate' => $currentCate,
+            'hotArticle' => ArticleQry::getInstance()->getHotArticle()
         ]);
     }
 
@@ -39,6 +51,27 @@ class SiteController extends Controller
     public function actionArticle()
     {
         return $this->render('article');
+    }
+
+    public function actionSearch($search = '')
+    {
+        if(empty($search) || mb_strlen($search,'utf-8')> 255){
+            return $this->redirect('site/index');
+        }
+        //print_r(ArticleQry::getInstance()->getLikeArticleCount($search));
+        $count = ArticleQry::getInstance()->getLikeArticleCount($search);
+        //print_r(ArticleQry::getInstance()->getLikeArticle($search));
+        $article = ArticleQry::getInstance()->getLikeArticle($search);
+        $pagination = new Pagination(['totalCount'=>$count,'pageSize'=> 10 ]);
+        $categroy = CategroyQry::getInstance()->getCategroys();
+        return $this->render('index',[
+            'categroy' => $categroy,
+            'article' => $article,
+            'search' => $search,
+            'pagination' => $pagination,
+            'hotArticle' => ArticleQry::getInstance()->getHotArticle()
+        ]);
+        //return $this->render('article');
     }
 
 }

@@ -47,7 +47,7 @@ use yii\helpers\Url;
 <link href="<?=Url::base(true)?>/css/style.css" rel="stylesheet" />
 <script src="<?=Url::base(true)?>/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
-    var globalSearchUrl = '/site/search.html';
+    var globalSearchUrl = '<?=Url::to(['site/search'])?>';   //js里的php
     $("#searching").click(function(){
         search($(this).siblings("input").val());
     });
