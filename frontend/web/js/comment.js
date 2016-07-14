@@ -7,10 +7,11 @@ $(function(){
             data : { id : rid},
             url : globalUpUrl,
             success : function(data){
-                if(data.status == '1'){
-                    var spanObj =  $(_this).find('span');  
+                if(data.status){  //if(data.status == 'true'){  将识别不出true
+                    alert(data.msg);
+                    var spanObj =  $(_this).find('span');
                     var count = parseInt(spanObj.html());
-                    if(isNaN(count)) count = 0; 
+                    if(isNaN(count)) count = 0;     //如果不是数字，就赋值0
                     spanObj.html(count + 1);
                     // window.location.reload();
                 }else{

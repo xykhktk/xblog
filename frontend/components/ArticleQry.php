@@ -10,6 +10,8 @@ namespace frontend\components;
 
 use frontend\components\BaseDb;
 use common\models\Article;
+use Yii;
+use yii\web\Cookie;
 
 class ArticleQry extends BaseDb
 {
@@ -58,6 +60,44 @@ class ArticleQry extends BaseDb
     public function getLikeArticle($title ,$offset = 0,$limit = 10 ){
         return Article::find()->select('id,cid,title,description,author,count,update_date')
             ->where(['status'=> 1])->andWhere(['like','title',$title])->limit($limit)->offset($offset)->asArray()->all();
+    }
+
+    public function getActicle($id){
+        $sql = "select a.id ,a.title,a.description,a.image,a.author,a.count,a.up,a.update_date,a.cid,a.content,c.name AS  cname
+                from {{%article}} a LEFT JOIN  {{%category}} c ON a.cid = c.id
+                WHERE a.id=:id AND a.status = 1 LIMIT 1";
+        return Article::findBySql($sql,[':id' => $id])->asArray()->one();
+    }
+
+    public function incrArticle($id){
+        $sql = "UPDATE {{%article}} SET count = count + 1 WHERE  id=:id";
+        return Yii::$app->db->createCommand($sql)->bindValue(':id' , $id)->execute();
+    }
+
+    public function upArticle($id){
+        $result = ['status'=>false ,'msg' => '非法操作'];
+        if(Article::find()->where(['id' => $id ,'status' => 1])->count() > 0){
+            //cookie 控制点赞间隔
+            $key = md5("article_up".Yii::$app->request->userIP.$id);
+            if(!Yii::$app->request->cookies->has($key)){
+                $c = new Cookie();
+                $c->name = $key;
+                $c->value = true;
+                $c->expire = time() + 60 * 60 * 24 * 7;
+                $c->httpOnly = true;
+                Yii::$app->response->cookies->add($c);
+                Yii::$app->response->send();    //！
+                $sql = "UPDATE {{%article}} SET up = up + 1 WHERE  id=:id";
+                if(Yii::$app->db->createCommand($sql)->bindValue(':id' , $id)->execute()){
+                    $result = ['status'=>true ,'msg' => '点赞成功'];
+                }else{
+                    $result = ['status'=>false ,'msg' => '操作异常'];
+                }
+                return $result;
+            }
+            $result = ['status'=>false ,'msg' => '一周只能点赞一次'];
+        }
+        return $result;
     }
 
 }

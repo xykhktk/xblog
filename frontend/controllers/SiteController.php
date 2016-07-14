@@ -48,9 +48,14 @@ class SiteController extends Controller
         return $this->render('blog');
     }
 
-    public function actionArticle()
+    public function actionArticle($id = 0)
     {
-        return $this->render('article');
+        if($id > 0){
+            $article = ArticleQry::getInstance()->getActicle($id);
+            ArticleQry::getInstance()->incrArticle($id);
+            return $this->render('article',[ 'article' => $article,]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     public function actionSearch($search = '')
@@ -72,6 +77,17 @@ class SiteController extends Controller
             'hotArticle' => ArticleQry::getInstance()->getHotArticle()
         ]);
         //return $this->render('article');
+    }
+
+    public function actionUp($id = 0)
+    {
+        if($id > 0 && Yii::$app->request->isAjax){
+            $result = ArticleQry::getInstance()->upArticle($id);
+            exit(json_encode($result)); //给js传参数？
+            //return $this->render('article',[ 'article' => $article,]);
+        }else{
+        }
+        return $this->redirect(['site/index']);
     }
 
 }
