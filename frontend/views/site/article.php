@@ -48,8 +48,11 @@ use yii\helpers\Url;
                                             <img src="./images/recomment.jpg" alt="smister">
                                         </a>
                                         <form method="post" class="comment-form">
+                                            <div class="ds-post-options ds-gradient-bg" style="margin-bottom:10px;">
+                                                <input type="text" value="" placeholder="名称" id="name" class="ds-name" />
+                                            </div>
                                             <div class="ds-textarea-wrapper ds-rounded-top">
-                                                <textarea id="message" placeholder="亲 , 想评论必须先登录哦."></textarea>
+                                                <textarea id="commentcontent" placeholder="亲 , 想评论必须先登录哦."></textarea>
                                                 <pre class="ds-hidden-text"></pre>
                                             </div>
                                             <div class="ds-post-toolbar">
@@ -152,7 +155,7 @@ use yii\helpers\Url;
     var member_img = "http://www.smister.com/images/recomment.jpg";
     var load_img = '/common/images/loading_hor.gif';
     var globalUpUrl = '<?=Url::to(['site/up'])?>';  //提交到js文件里的参数
-    var globalRecommentUrl = '/site/recomment.html';
+    var globalRecommentUrl = '<?=Url::to(['site/recomment'])?>';
     var globalCommentlistUrl = '/site/commentlist.html';
 </script>
 <script type="text/javascript" src="<?=Url::base(true)?>/js/comment.js"></script>

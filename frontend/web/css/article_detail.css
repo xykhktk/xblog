@@ -39,3 +39,15 @@
     }
 
     /*分享按钮*/.bdsharebuttonbox{clear:both;margin-top:5px;}.bdshare-button-style0-16 a, .bdshare-button-style0-16 .bds_more {color:#999;font-size:14px;}.bdshare-button-style0-16 a:hover{text-decoration: none;}
+
+    #ds-reset input.ds-name{
+        height:28px;
+        line-height:28px;
+        color:#666;
+        padding-left:12px;
+        background-color:#fff;
+        width:100%;
+    }
+    #cmpage ul#yw0 li.prev,#cmpage ul#yw0 li.next{
+        display:none;
+    }

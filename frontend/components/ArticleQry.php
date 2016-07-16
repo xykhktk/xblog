@@ -52,11 +52,23 @@ class ArticleQry extends BaseDb
             ->where(['status' => 1])->orderBy('up DESC')->limit($limit)->asArray()->all();
     }
 
+    /**
+     * 搜索文章前，用于先获取查询结果的数量。
+     * @param $title
+     * @return int|string
+     */
     public function getLikeArticleCount($title){
         //return Article::find()->where('and',['status'=> 1])->andWhere(['like','title',$title])->count();
         return Article::find()->where(['status'=> 1])->andWhere(['like','title',$title])->count();
     }
 
+    /**
+     *搜索文章
+     * @param $title
+     * @param int $offset
+     * @param int $limit
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public function getLikeArticle($title ,$offset = 0,$limit = 10 ){
         return Article::find()->select('id,cid,title,description,author,count,update_date')
             ->where(['status'=> 1])->andWhere(['like','title',$title])->limit($limit)->offset($offset)->asArray()->all();
@@ -98,6 +110,15 @@ class ArticleQry extends BaseDb
             $result = ['status'=>false ,'msg' => '一周只能点赞一次'];
         }
         return $result;
+    }
+
+    /**
+     * 是否存在
+     * @param $id
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public function articileExist($id){
+        return Article::find()->where(['id' => $id,'status' => 1])->one();
     }
 
 }

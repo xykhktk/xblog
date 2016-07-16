@@ -6,11 +6,14 @@ use yii\web\Controller;
 use frontend\components\CategroyQry;
 use frontend\components\ArticleQry;
 use yii\data\Pagination;
+use frontend\components\CommentQry;
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+    public $enableCsrfValidation = false;   //接收ajax请求，需要关闭csrf
+
     public function actionIndex($cid = 0)
     {
        /* \frontend\components\ArticleQry::getInstance()->getA();
@@ -88,6 +91,21 @@ class SiteController extends Controller
         }else{
         }
         return $this->redirect(['site/index']);
+    }
+
+    public function actionRecomment()
+    {
+        //echo '111123';  //在firefox下，在  网络  预览  中看
+        //print_r('123');   //同上
+        if(Yii::$app->request->isAjax){
+            $data['name'] = Yii::$app->request->post('name','');
+            $data['content'] = Yii::$app->request->post('content','');
+            $data['article_id'] = Yii::$app->request->post('rid','');
+            exit(json_encode(CommentQry::getInstance()->add($data)));    //前端js接收的方式
+        }else{
+            return $this->redirect(['site/index']);
+        }
+
     }
 
 }

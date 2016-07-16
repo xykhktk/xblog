@@ -24,8 +24,10 @@ $(function(){
 
     $("#submit-recomment").click(function(){
        // alert($("#message").val());
-        if(!recomment({content : $("#message").val()} , null)) $("#message").focus();
-        else $("#message").val("");
+        //if(!recomment({content : $("#message").val()} , null)) $("#message").focus();
+        //else $("#message").val("");
+        var obj = {name : $("#name").val() , content : $("#commentcontent").val()};
+        recomment(obj,null);
     });
 
     //ajaxData(null,1);        //初始化评论
@@ -41,12 +43,22 @@ $(function(){
 });
 
 function recomment(data , obj){
+
+    if(data.name == ""){
+        alert("名称信息不能为空");
+        return false;
+    }
+    if(data.name.length > 20){
+        alert("名称字符请控制在20字内.");
+        return false;
+    }
+
     if(data.content == ""){
         alert("留言的信息不能为空");
         return false;
     }
-    if(data.content.length > 255){
-        alert("留言的信息字符请控制在255字内.");
+    if(data.content.length > 200){
+        alert("留言的信息字符请控制在200字内.");
         return false;
     }
 
@@ -57,12 +69,14 @@ function recomment(data , obj){
         dataType : 'json',
         url : globalRecommentUrl,
         success : function(jsonData){
-            if(jsonData.status == 1){
-                ajaxData(null,1);    //更新
+           if(jsonData.status == 1){
+                /*ajaxData(null,1);    //更新
                 if(data.type == 2){
                     //子评论需要移除评论框
                     obj.remove();           
-                }
+                }*/
+               $("#name").val('');
+               $("#commentcontent").val('');  //情况数据
             }else{
                 alert(jsonData.msg);
             }
