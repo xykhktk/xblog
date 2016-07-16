@@ -117,9 +117,9 @@ function ajaxData(page){
                 //子类回复
                 appStr += commentTmpl(jsonData['data'][dd]);
                 appStr +='<ul class="ds-comments" style="padding-left:25px;">';
-                /* for(var cdata in  jsonData['data'][dd]['child']){
+                 for(var cdata in  jsonData['data'][dd]['child']){
                     appStr +=commentTmpl(jsonData['data'][dd]['child'][cdata] , true) + '</li>';
-                }*/
+                }
                 appStr +='     </ul>';
                 appStr +='</li> ';
             }
@@ -143,9 +143,9 @@ function commentTmpl(data , child){
     appStr +='                <span data-qqt-account="" class="ds-user-name"><a class="ds-user-name ds-highlight">' + data['name'] + '</a></span>';
     appStr +='            </div>';
     appStr +='            <p>';
-/*    if(child){
-         appStr +='<a class="ds-comment-context">回复 ' + data['aname'] + ': </a>';
-    }*/
+    if(child){
+         appStr +='<a class="ds-comment-context">回复 ' + data['name'] + ': </a>';
+    }
     appStr +=data['content'];
     appStr +='            </p>';
     appStr +='            <div class="ds-comment-footer ds-comment-actions">';
@@ -161,7 +161,7 @@ function commentTmpl(data , child){
 
 function showComment(_this){
     var parentObj = $(_this).parent().parent();
-    if(parentObj.find(".recomment-box").length > 0) {
+    if(parentObj.find(".recomment-box").length > 0) {   //判断评论是否存在，不存在则关闭
         parentObj.find(".recomment-box").remove();
         return;
     }
@@ -173,7 +173,7 @@ function showComment(_this){
     appStr +='    </a>';
     appStr +='    <form method="post" class="comment-form">';
     appStr +='        <div class="ds-post-options ds-gradient-bg" style="margin-bottom:10px;">';
-    appStr +='             <input type="text" value="" placeholder="名称"  class="ds-name rename" />';
+    appStr +='             <input type="text" value="" placeholder="名称"  class="ds-name comment-title" />';
     appStr +='        </div>';
     appStr +='        <div class="ds-textarea-wrapper ds-rounded-top">';
     appStr +='            <textarea  class="message" data="' + $(_this).attr('data') +'" placeholder="= 。= .评论吧."></textarea>';
@@ -194,7 +194,9 @@ function sendComment(_this){
     //$(_this).parent().parent();
     var parentObj = $(_this).parent().parent();
     var messageObj = parentObj.find(".message");
+    var nameObj = parentObj.find(".comment-title");
     var data = {
+        name : nameObj.val(),
         content : messageObj.val(),
         comment_id : messageObj.attr('data')
     };

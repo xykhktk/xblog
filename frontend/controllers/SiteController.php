@@ -102,6 +102,7 @@ class SiteController extends Controller
             $data['name'] = Yii::$app->request->post('name','');
             $data['content'] = Yii::$app->request->post('content','');
             $data['article_id'] = Yii::$app->request->post('rid','');
+            $data['pid'] = Yii::$app->request->post('comment_id',0);
             //var_dump($data);exit();
             exit(json_encode(CommentQry::getInstance()->add($data)));    //前端js接收的方式
         }else{

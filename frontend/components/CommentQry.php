@@ -26,8 +26,9 @@ class CommentQry extends BaseDb
         }elseif(empty($data['content']) || mb_strlen($data['content'],'utf-8') > 200){
             $result = ['status' => 0,'msg' => '评论内容不能为空并且不能大于200。'];
             //return $result;
-        }else{
-            $data['123'] = '123';
+        } else if($data['pid'] > 0 && !$this->commentExist($data['article_id'],$data['pid'])){
+            $result = ['status' => 0,'msg' => '回复的评论不存在'];
+        } else{
             $comment = new ArticleComment();
             $comment->setAttributes($data); //setAttribute 和 setAttributes 。分2种设置方式。
             if($comment->save()){
@@ -45,11 +46,23 @@ class CommentQry extends BaseDb
      * @param int $limit
      */
     public function articleCommentlist($id,$offset = 0,$limit = 10){
-        $comment =  ArticleComment::find()->where(['article_id' => $id ])->offset($offset)->limit($limit)->asArray()->all();
+        $result = [];
+        $comment =  ArticleComment::find()->where(['article_id' => $id ,'pid' => 0 ,'status' => 1])->offset($offset)->limit($limit)->asArray()->all();
+        $commentId = [];
         foreach ($comment as $k=>$v){
-            $comment[$k]['date'] = date('Y-m-d H:i:s',$v['date']);
+            $result[$v['id']] = $v;
+            $result[$v['id']]['child'] = '';
+            $result[$v['id']]['date'] = date('Y-m-d H:i:s',$v['date']);
+            $commentId[] = $v['id'];  //一级评论id
         }
-        return $comment;
+        $childComment = ArticleComment::find()->where(['article_id' => $id,'status' => 1 ])->andWhere(['in' , 'pid' ,$commentId ])->asArray()->all();
+        foreach ($childComment as $v) {
+            $v['id'] = $v['pid'] ;
+            $v['date']=  date('Y-m-d H:i:s',$v['date']);
+            $result[$v['pid']]['child'][] = $v; //////////////////////
+        }
+
+        return $result;
     }
 
     /**
@@ -59,6 +72,15 @@ class CommentQry extends BaseDb
      */
     public function count($articleid){
         return ArticleComment::find()->where(['article_id' => $articleid ,'pid' => 0 ,'status' => 1])->count();
+    }
+
+    /**
+     * 评论是否存在
+     * @param $articleid
+     * @param $pid
+     */
+    public function commentExist($articleid,$pid){
+        return ArticleComment::find()->where(['id' => $pid , 'article_id'=> $articleid,'status' => 1])->count();
     }
 
 

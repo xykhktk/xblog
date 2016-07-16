@@ -49,10 +49,10 @@ use yii\helpers\Url;
                                         </a>
                                         <form method="post" class="comment-form">
                                             <div class="ds-post-options ds-gradient-bg" style="margin-bottom:10px;">
-                                                <input type="text" value="" placeholder="名称" id="name" class="ds-name" />
+                                                <input type="text" value="" placeholder="标题" id="name" class="ds-name" />
                                             </div>
                                             <div class="ds-textarea-wrapper ds-rounded-top">
-                                                <textarea id="commentcontent" placeholder="亲 , 想评论必须先登录哦."></textarea>
+                                                <textarea id="commentcontent" placeholder="评论内容"></textarea>
                                                 <pre class="ds-hidden-text"></pre>
                                             </div>
                                             <div class="ds-post-toolbar">
