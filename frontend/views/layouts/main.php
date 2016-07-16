@@ -8,9 +8,9 @@ use yii\helpers\Url;
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Gkanon,php,android" />
-    <meta name="description" content="GKanon : php , android act. " />
-    <title>Gkanon</title>
+    <meta name="keywords" content="<?=$this->params['keyword']?>" />
+    <meta name="description" content="<?=$this->params['description']?> " />
+    <title><?=$this->params['name']?></title>
     <script src="<?=Url::base(true)?>/js/jquery.js"></script>
 </head>
 <body>
@@ -24,7 +24,7 @@ use yii\helpers\Url;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?=Url::base(true)?>">Gkanon</a>
+                <a class="navbar-brand" href="<?=Url::base(true)?>"><?=$this->params['name']?></a>
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
@@ -39,7 +39,7 @@ use yii\helpers\Url;
 
 <footer class="footer" style="height:auto;min-height:60px;background-color:#373737;">
     <div class="container">
-        <p class="pull-left">&copy; Smister 2016 | 粤ICP备14038179号</p>
+        <p class="pull-left"><?=$this->params['copyright']?></p>
     </div>
 </footer>
 <link href="<?=Url::base(true)?>/bootstrap/css/bootstrap.css" rel="stylesheet" />

@@ -299,20 +299,14 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <ul class="dropdown-menu">
 
-                        <li><a href="extra_profile.html"><i class="icon-user"></i> My Profile</a></li>
+                        <li><a href="<?=Yii::getAlias('@frontendUrl').'/web'?>"><i class="icon-circle-arrow-left"></i> 到前台</a></li>
 
-                        <li><a href="page_calendar.html"><i class="icon-calendar"></i> My Calendar</a></li>
+                        <!--<li class="divider"></li>-->
 
-                        <li><a href="inbox.html"><i class="icon-envelope"></i> My Inbox(3)</a></li>
-
-                        <li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
-
-                        <li class="divider"></li>
-
-                        <li><a href="extra_lock.html"><i class="icon-lock"></i> Lock Screen</a></li>
+                        <!--<li><a href="extra_lock.html"><i class="icon-lock"></i> Lock Screen</a></li>-->
 
                         <!--<li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>-->
-                        <li><a href="<?=Url::to(['site/logout'])?>" data-method="post"><i class="icon-key"></i> Log Out</a></li>
+                        <li><a href="<?=Url::to(['site/logout'])?>" data-method="post"><i class="icon-key"></i> 退出登录</a></li>
 
                     </ul>
 
@@ -407,8 +401,14 @@ $this->registerJs('jQuery(document).ready(function() {
                 <ul class="sub-menu">
                     <li>
                         <a href="<?=Url::to(['authitem/index'])?>">
-                            角色/权限管理</a>
+                            角色/权限管理（废弃）</a>
                     </li>
+
+                    <li>
+                        <a href="<?=Url::to(['setting/index'])?>">
+                            博客信息设置</a>
+                    </li>
+                    
                 </ul>
 
             </li>
@@ -467,23 +467,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                         <a href="<?=Url::to(['user/index'])?>" >
 
-                           用户管理</a>
-
-                    </li>
-
-                    <li>
-
-                        <a href="ui_buttons.html">
-
-                            Buttons</a>
-
-                    </li>
-
-                    <li>
-
-                        <a href="ui_modals.html">
-
-                            Enhanced Modals</a>
+                           用户管理(废弃)</a>
 
                     </li>
 
@@ -566,7 +550,6 @@ $this->registerJs('jQuery(document).ready(function() {
                             <label>
 
                                 <span>Layout</span>
-
                                 <select class="layout-option m-wrap small">
 
                                     <option value="fluid" selected="">Fluid</option>

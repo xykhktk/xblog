@@ -8,6 +8,8 @@ use frontend\components\CategroyQry;
 use frontend\components\ArticleQry;
 use yii\data\Pagination;
 use frontend\components\CommentQry;
+use frontend\components\SettingQry;
+
 /**
  * Site controller
  */
@@ -24,7 +26,7 @@ class SiteController extends Controller
         //print_r(CategroyQry::getInstance()->getCategroys());
         //print_r(ArticleQry::getInstance()->count());
         //print_r(ArticleQry::getInstance()->getArticles());
-        print_r(ArticleQry::getInstance()->getHotArticle());
+        //print_r(ArticleQry::getInstance()->getHotArticle());
         $categroy = CategroyQry::getInstance()->getCategroys();
         $cid = (int)$cid;
         $currentCate = [];
@@ -50,6 +52,15 @@ class SiteController extends Controller
     {
         $this->layout = 'blog.php';
         return $this->render('blog');
+    }
+
+    public function init(){
+        parent::init();
+        $blogSetting = SettingQry::getInstance()->getSetting();
+        //print_r($blogSetting);
+        foreach ($blogSetting as $k=>$v) {
+            Yii::$app->view->params[$k] = $v;       //给layout的传值方式
+        }
     }
 
     public function actionArticle($id = 0)

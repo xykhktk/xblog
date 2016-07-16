@@ -10,12 +10,50 @@ CREATE TABLE `auth_rule` (  `name` varchar(64) NOT NULL,  `data` text,  `created
 
 CREATE TABLE `migration` (  `version` varchar(180) NOT NULL,  `apply_time` int(11) DEFAULT NULL,  PRIMARY KEY (`version`)) ENGINE=MyISAM DEFAULT CHARSET=gbk
 
-CREATE TABLE `user` (  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID',  `username` varchar(255) NOT NULL COMMENT 'ÓÃ»§Ãû',  `auth_key` varchar(32) NOT NULL COMMENT '×Ô¶¯µÇÂ¼key',  `password_hash` varchar(255) NOT NULL COMMENT '¼ÓÃÜÃÜÂë',  `password_reset_token` varchar(255) DEFAULT NULL COMMENT 'ÖØÖÃÃÜÂëtoken',  `email` varchar(255) NOT NULL COMMENT 'ÓÊÏä',  `role` smallint(6) NOT NULL DEFAULT '10' COMMENT '½ÇÉ«µÈ¼¶',  `status` smallint(6) NOT NULL DEFAULT '10' COMMENT '×´Ì¬',  `created_at` int(11) NOT NULL COMMENT '´´½¨Ê±¼ä',  `updated_at` int(11) NOT NULL COMMENT '¸üĞÂÊ±¼ä',  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='ÓÃ»§±í'
+CREATE TABLE `user` (  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½ID',  `username` varchar(255) NOT NULL COMMENT 'ï¿½Ã»ï¿½ï¿½ï¿½',  `auth_key` varchar(32) NOT NULL COMMENT 'ï¿½Ô¶ï¿½ï¿½ï¿½Â¼key',  `password_hash` varchar(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',  `password_reset_token` varchar(255) DEFAULT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½token',  `email` varchar(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½',  `role` smallint(6) NOT NULL DEFAULT '10' COMMENT 'ï¿½ï¿½É«ï¿½È¼ï¿½',  `status` smallint(6) NOT NULL DEFAULT '10' COMMENT '×´Ì¬',  `created_at` int(11) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',  `updated_at` int(11) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='ï¿½Ã»ï¿½ï¿½ï¿½'
 
-CREATE TABLE `x_admin` (  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '×ÔÔöID',  `username` varchar(255) NOT NULL COMMENT 'ÓÃ»§Ãû',  `auth_key` varchar(32) NOT NULL COMMENT '×Ô¶¯µÇÂ¼key',  `password_hash` varchar(255) NOT NULL COMMENT '¼ÓÃÜÃÜÂë',  `password_reset_token` varchar(255) DEFAULT NULL COMMENT 'ÖØÖÃÃÜÂëtoken',  `email` varchar(255) NOT NULL COMMENT 'ÓÊÏä',  `role` smallint(6) NOT NULL DEFAULT '10' COMMENT '½ÇÉ«µÈ¼¶',  `status` smallint(6) NOT NULL DEFAULT '10' COMMENT '×´Ì¬',  `created_at` int(11) NOT NULL COMMENT '´´½¨Ê±¼ä',  `updated_at` int(11) NOT NULL COMMENT '¸üĞÂÊ±¼ä',  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='ÓÃ»§±í'
+CREATE TABLE `x_admin` (  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½ID',  `username` varchar(255) NOT NULL COMMENT 'ï¿½Ã»ï¿½ï¿½ï¿½',  `auth_key` varchar(32) NOT NULL COMMENT 'ï¿½Ô¶ï¿½ï¿½ï¿½Â¼key',  `password_hash` varchar(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',  `password_reset_token` varchar(255) DEFAULT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½token',  `email` varchar(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½',  `role` smallint(6) NOT NULL DEFAULT '10' COMMENT 'ï¿½ï¿½É«ï¿½È¼ï¿½',  `status` smallint(6) NOT NULL DEFAULT '10' COMMENT '×´Ì¬',  `created_at` int(11) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',  `updated_at` int(11) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='ï¿½Ã»ï¿½ï¿½ï¿½'
 
-CREATE TABLE `x_category` (  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,  `pid` mediumint(8) unsigned NOT NULL DEFAULT '0',  `name` varchar(30) NOT NULL DEFAULT '',  `sort_order` mediumint(8) unsigned NOT NULL DEFAULT '0',  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'ÊÇ·ñ¿ÉÓÃ',  `date` int(11) unsigned NOT NULL DEFAULT '631152000',  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+CREATE TABLE `x_category` (  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,  `pid` mediumint(8) unsigned NOT NULL DEFAULT '0',  `name` varchar(30) NOT NULL DEFAULT '',  `sort_order` mediumint(8) unsigned NOT NULL DEFAULT '0',  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'ï¿½Ç·ï¿½ï¿½ï¿½ï¿½',  `date` int(11) unsigned NOT NULL DEFAULT '631152000',  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
-CREATE TABLE `x_user` (  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',  `username` varchar(30) NOT NULL DEFAULT '' COMMENT 'ÓÃ»§Ãû',  `password` char(32) NOT NULL DEFAULT '' COMMENT 'ÃÜÂë',  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'ÊÇ·ñ¿ÉÓÃ',  `login_ip` varchar(15) NOT NULL DEFAULT '127.0.0.1' COMMENT 'µÇÂ¼ ip',  `login_date` int(11) unsigned NOT NULL DEFAULT '631152000' COMMENT 'µÇÂ¼Ê±¼ä',  `date` int(11) unsigned NOT NULL DEFAULT '631152000' COMMENT '´´½¨Ê±¼ä',  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+CREATE TABLE `x_user` (  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',  `username` varchar(30) NOT NULL DEFAULT '' COMMENT 'ï¿½Ã»ï¿½ï¿½ï¿½',  `password` char(32) NOT NULL DEFAULT '' COMMENT 'ï¿½ï¿½ï¿½ï¿½',  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'ï¿½Ç·ï¿½ï¿½ï¿½ï¿½',  `login_ip` varchar(15) NOT NULL DEFAULT '127.0.0.1' COMMENT 'ï¿½ï¿½Â¼ ip',  `login_date` int(11) unsigned NOT NULL DEFAULT '631152000' COMMENT 'ï¿½ï¿½Â¼Ê±ï¿½ï¿½',  `date` int(11) unsigned NOT NULL DEFAULT '631152000' COMMENT 'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE IF NOT EXISTS `x_article` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `cid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
+  `image` varchar(255) NOT NULL DEFAULT '',
+  `author` varchar(100) NOT NULL DEFAULT '',
+  `count` int(10) unsigned NOT NULL DEFAULT '0',
+  `up` int(10) unsigned NOT NULL DEFAULT '0',
+  `down` int(10) unsigned NOT NULL DEFAULT '0',
+  `sort_order` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'æ˜¯å¦å¯ç”¨',
+  `update_date` int(10) unsigned NOT NULL DEFAULT '631152000',
+  `date` int(10) unsigned NOT NULL DEFAULT '631152000',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+CREATE TABLE `x_article_comment` (
+`id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+`pid` mediumint(8) unsigned NOT NULL DEFAULT'0',
+`article_id` mediumint(8) unsigned NOT NULL DEFAULT'0',
+`name` varchar(20) NOT NULL DEFAULT'',
+`content` varchar(200) NOT NULL DEFAULT'',
+`status` tinyint(1) NOT NULL DEFAULT'1',
+`date` int(11) unsigned NOT NULL DEFAULT'631152000',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `x_setting` (
+`id` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,
+`name` varchar(100) NOT NULL DEFAULT'',
+`keyword` varchar(255) NOT NULL DEFAULT'',
+`description` varchar(255) NOT NULL DEFAULT'',
+`copyright` varchar(255) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 

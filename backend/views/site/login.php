@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="form-actions">
                     <label class="checkbox">
-                        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                        <?= $form->field($model, 'remember')->checkbox() ?>
                     </label>
                      <?= Html::submitButton('登录', ['class' => 'btn btn-primary green pull-right', 'name' => 'login-button']) ?>
                     <!--<i class="m-icon-swapright m-icon-white"></i>-->

@@ -136,7 +136,8 @@ function commentTmpl(data , child){
     appStr +='<li class="ds-post">';
     appStr +='    <div data-source="duoshuo" class="ds-post-self">';
     appStr +='        <div class="ds-avatar">';
-    appStr +='                <img alt="noImg" src="'+data['simage']+'"/>';
+    /*appStr +='                <img alt="noImg" src="'+data['image']+'"/>';*/
+    appStr +='                <img alt="noImg" src="'+ member_img +'"/>';
     appStr +='        </div>';
     appStr +='        <div class="ds-comment-body">';
     appStr +='            <div class="ds-comment-header">';
@@ -169,7 +170,7 @@ function showComment(_this){
     var appStr = '';
     appStr +='<div class="ds-replybox recomment-box">';
     appStr +='    <a class="ds-avatar" href="javascript:void(0);">';
-    appStr +='        <img src="' +  member_img + '" alt="smister">';
+    appStr +='        <img src="' +  member_img + '" alt="gkanon">';
     appStr +='    </a>';
     appStr +='    <form method="post" class="comment-form">';
     appStr +='        <div class="ds-post-options ds-gradient-bg" style="margin-bottom:10px;">';

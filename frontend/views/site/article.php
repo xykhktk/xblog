@@ -156,7 +156,7 @@ use yii\helpers\Url;
 
 <script type="text/javascript">
     var rid = <?=$article['id']?>;
-    var member_img = "http://www.smister.com/images/recomment.jpg";
+    var member_img = '<?=Url::base(true);?>/images/recomment.jpg';  ///////////////////
     var load_img = '/common/images/loading_hor.gif';
     var globalUpUrl = '<?=Url::to(['site/up'])?>';  //提交到js文件里的参数
     var globalRecommentUrl = '<?=Url::to(['site/recomment'])?>';
