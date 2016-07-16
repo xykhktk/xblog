@@ -77,7 +77,7 @@ use yii\helpers\Url;
                                         </ul>
                                     </div>
                                     <ul id="comments-list" class="ds-comments">
-                                        <li class="ds-post">
+                                        <!--<li class="ds-post">
                                             <div data-source="duoshuo" class="ds-post-self">
                                                 <div class="ds-avatar">
                                                     <img alt="smister" src="http://qzapp.qlogo.cn/qzapp/101196234/CCF0E87444307C250B53A314957416F4/50">
@@ -96,8 +96,8 @@ use yii\helpers\Url;
                                             </div>
                                             <ul class="ds-comments" style="padding-left:25px;">
                                             </ul>
-                                        </li>
-                                        <li class="ds-post">
+                                        </li>-->
+                                        <!--<li class="ds-post">
                                             <div data-source="duoshuo" class="ds-post-self">
                                                 <div class="ds-avatar">
                                                     <img alt="smister" src="http://qzapp.qlogo.cn/qzapp/101196234/CCF0E87444307C250B53A314957416F4/50">
@@ -137,9 +137,13 @@ use yii\helpers\Url;
                                                     </div>
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                     </ul>
-                                    <div id="cmpage" class="ds-paginator"><ul id="yw0" class="yiiPager"><li class="previous hidden"><a href="javascript:;">上一页</a></li><li class="selected"><a href="javascript:;" onclick="ajaxData(this,0)" data="sort=DESC&amp;rid=29">1</a></li><li class="next hidden"><a href="javascript:;">下一页</a></li></ul></div>
+                                    <div id="cmpage" class="ds-paginator">
+                                        <!--<ul id="yw0" class="yiiPager">
+                                            <li class="previous hidden"><a href="javascript:;">上一页</a></li>
+                                            <li class="selected"><a href="javascript:;" onclick="ajaxData(this,0)" data="sort=DESC&amp;rid=29">1</a></li>
+                                        <li class="next hidden"><a href="javascript:;">下一页</a></li></ul></div>-->
                                 </div>
                             </div>
                         </div>
@@ -156,7 +160,7 @@ use yii\helpers\Url;
     var load_img = '/common/images/loading_hor.gif';
     var globalUpUrl = '<?=Url::to(['site/up'])?>';  //提交到js文件里的参数
     var globalRecommentUrl = '<?=Url::to(['site/recomment'])?>';
-    var globalCommentlistUrl = '/site/commentlist.html';
+    var globalCommentlistUrl = '<?=Url::to(['site/recommentlist'])?>';
 </script>
 <script type="text/javascript" src="<?=Url::base(true)?>/js/comment.js"></script>
 <link rel="stylesheet" href="./css/article_detail.css" />

@@ -30,7 +30,7 @@ $(function(){
         recomment(obj,null);
     });
 
-    //ajaxData(null,1);        //初始化评论
+    ajaxData(1);        //初始化评论
 
     //排序
     $(".ds-sort a").click(function(){
@@ -70,11 +70,11 @@ function recomment(data , obj){
         url : globalRecommentUrl,
         success : function(jsonData){
            if(jsonData.status == 1){
-                /*ajaxData(null,1);    //更新
+                ajaxData(1);    //发表评论成功后，更新评论列表
                 if(data.type == 2){
                     //子评论需要移除评论框
                     obj.remove();           
-                }*/
+                }
                $("#name").val('');
                $("#commentcontent").val('');  //情况数据
             }else{
@@ -85,9 +85,9 @@ function recomment(data , obj){
     return true;
 }
 
-/*
-function ajaxData(_this , page){
-    page = parseInt(page);
+
+function ajaxData(page){
+    /*page = parseInt(page);
     if(isNaN(page) || page < 1)return false;
     var params = {page : page , sort : $(".ds-current").attr('data')};
     if(!!_this){
@@ -103,12 +103,12 @@ function ajaxData(_this , page){
         }
     }else{
         params['rid'] = rid;
-    }
+    }*/
 
-    $("#comments-list").html('<li><img src="' + load_img+'" style="display:block;margin:0 auto;"/></li>');
+   // $("#comments-list").html('<li><img src="' + load_img+'" style="display:block;margin:0 auto;"/></li>');
      $.ajax({
         type : 'get',
-        data : params,
+        data : {page : page ,article_id : rid},
         dataType : 'json',
         url : globalCommentlistUrl,
         success : function(jsonData){
@@ -117,39 +117,39 @@ function ajaxData(_this , page){
                 //子类回复
                 appStr += commentTmpl(jsonData['data'][dd]);
                 appStr +='<ul class="ds-comments" style="padding-left:25px;">';
-                for(var cdata in  jsonData['data'][dd]['child']){
+                /* for(var cdata in  jsonData['data'][dd]['child']){
                     appStr +=commentTmpl(jsonData['data'][dd]['child'][cdata] , true) + '</li>';
-                }
+                }*/
                 appStr +='     </ul>';
                 appStr +='</li> ';
             }
             $("#comments-list").html(appStr);
             $("#recomment-count").html(jsonData['count']);   //评论条数
-            $("#cmpage").html(jsonData['page']);
+            $("#cmpage").html(jsonData['pagestr']);
         }
     });
 }
-*/
+
 //评论的模板
 function commentTmpl(data , child){
     var appStr = '';
     appStr +='<li class="ds-post">';
     appStr +='    <div data-source="duoshuo" class="ds-post-self">';
     appStr +='        <div class="ds-avatar">';
-    appStr +='                <img alt="smister" src="'+data['simage']+'"/>';
+    appStr +='                <img alt="noImg" src="'+data['simage']+'"/>';
     appStr +='        </div>';
     appStr +='        <div class="ds-comment-body">';
     appStr +='            <div class="ds-comment-header">';
-    appStr +='                <span data-qqt-account="" class="ds-user-name"><a class="ds-user-name ds-highlight">' + data['sname'] + '</a></span>';
+    appStr +='                <span data-qqt-account="" class="ds-user-name"><a class="ds-user-name ds-highlight">' + data['name'] + '</a></span>';
     appStr +='            </div>';
     appStr +='            <p>';
-    if(child){
+/*    if(child){
          appStr +='<a class="ds-comment-context">回复 ' + data['aname'] + ': </a>';
-    }
+    }*/
     appStr +=data['content'];
     appStr +='            </p>';
     appStr +='            <div class="ds-comment-footer ds-comment-actions">';
-    appStr +='                    <span class="ds-time">' + data['dateFormat'] + '</span>';
+    appStr +='                    <span class="ds-time">' + data['date'] + '</span>';
     appStr +='                    <a href="javascript:void(0);" class="ds-post-reply" onclick="showComment(this);" data="' + data['id']  + '">';
     appStr +='                         <span class="ds-icon ds-icon-reply"></span>回复';
     appStr +='                    </a>';
@@ -172,6 +172,9 @@ function showComment(_this){
     appStr +='        <img src="' +  member_img + '" alt="smister">';
     appStr +='    </a>';
     appStr +='    <form method="post" class="comment-form">';
+    appStr +='        <div class="ds-post-options ds-gradient-bg" style="margin-bottom:10px;">';
+    appStr +='             <input type="text" value="" placeholder="名称"  class="ds-name rename" />';
+    appStr +='        </div>';
     appStr +='        <div class="ds-textarea-wrapper ds-rounded-top">';
     appStr +='            <textarea  class="message" data="' + $(_this).attr('data') +'" placeholder="= 。= .评论吧."></textarea>';
     appStr +='            <pre class="ds-hidden-text"></pre>';

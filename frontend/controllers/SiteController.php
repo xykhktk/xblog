@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Comment;
 use Yii;
 use yii\web\Controller;
 use frontend\components\CategroyQry;
@@ -95,17 +96,49 @@ class SiteController extends Controller
 
     public function actionRecomment()
     {
-        //echo '111123';  //在firefox下，在  网络  预览  中看
+        //echo '111123';  //在firefox下，在  网络->预览  中看
         //print_r('123');   //同上
         if(Yii::$app->request->isAjax){
             $data['name'] = Yii::$app->request->post('name','');
             $data['content'] = Yii::$app->request->post('content','');
             $data['article_id'] = Yii::$app->request->post('rid','');
+            //var_dump($data);exit();
             exit(json_encode(CommentQry::getInstance()->add($data)));    //前端js接收的方式
         }else{
             return $this->redirect(['site/index']);
         }
+    }
 
+    /**
+     * @param $id 文章的id
+     * @param int $offset
+     * @param int $limit
+     */
+    //public function actionRecommentlist($id,$offset = 0,$limit = 10){     如果指定了传参。但是又没有传，例如没传id
+    //exception 'yii\web\BadRequestHttpException' with message 'Missing required parameters: id'
+    public function actionRecommentlist(){
+        $articleid = Yii::$app->request->get('article_id',0);   //??
+        $commentCount = CommentQry::getInstance()->count($articleid);
+        $pagination = new Pagination(['totalCount' => $commentCount,'pageSize' => 3]);
+        $data =  CommentQry::getInstance()->articleCommentlist($articleid ,$pagination->offset,$pagination->limit);
+        //print_r($data);
+
+        $str =  \yii\widgets\LinkPager::widget([        //'pageSize' => 1  足够小，否则无法输出
+            'pagination' => $pagination,                //然后在response可以看到html输出
+            'options' =>[
+                'class' =>  'yiiPager',         //这将是ul的class和id
+                'id' => 'yw0'
+            ]
+        ]
+        );
+
+        //要把<li><a href="/xblog/frontend/web/index.php?r=site%2Frecommentlist&amp;page=2&amp;article_id=5&amp;per-page=1" data-page="1">2</a></li>
+        //替换成<li><a onclick="ajaxData(2)" data-page="1">2</a></li>
+        $str = preg_replace('/href="[^"]+page=(\d+)[^"]+"/','onclick="ajaxData(\1)"',$str);
+        $str = str_replace('class="active"', 'class="selected"', $str);
+
+        //echo $str;exit();
+        exit(json_encode(['pagestr' => $str ,'data' => $data,'count' => $commentCount]));
     }
 
 }

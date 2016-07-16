@@ -19,7 +19,7 @@ class ArticleComment extends  ActiveRecord
 
     public function rules(){
         return [
-            [['name','id','article_id','pid'] ,'safe']
+            [['name','id','article_id','pid','content'] ,'safe']        //这里没加上content，会导致content保存不成功
         ];
     }
 
