@@ -24,8 +24,11 @@ class ArticleComment extends  ActiveRecord
     }
 
     public function beforeSave($insert){
+        //if(parent::beforeSave($insert) && $this->isNewRecord){    //isNewRecord不能写在这，否则在不是新记录时，直接不返回true、
         if(parent::beforeSave($insert)){
-            $this->date = time();
+            if($this->isNewRecord){
+                $this->date = time();
+            }
             return true;
         }
         return false;

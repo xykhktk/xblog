@@ -419,7 +419,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <i class="icon-cogs"></i>
 
-                    <span class="title">文章管理</span>
+                    <span class="title">文章和评论管理</span>
 
                     <span class="selected"></span>
 
@@ -442,6 +442,14 @@ $this->registerJs('jQuery(document).ready(function() {
                         <a href="<?=Url::to(['article/index'])?>">
 
                             文章列表</a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="<?=Url::to(['comment/index'])?>">
+
+                            评论管理</a>
 
                     </li>
 

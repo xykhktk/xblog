@@ -123,7 +123,8 @@ class ArticleController extends Controller
         $categorys = Category::getCategory();
         print_r($categorys); print_r($result); exit();
         return $this->render('index',['result' => $result , 'pagination' => $paginaton,'categorys' => $categorys]);*/
-        $result = (new \yii\db\Query())->select("*")->from("x_article a")->leftJoin("x_category c","a.cid = c.id")->all();
+        $result = (new \yii\db\Query())->select("a.id AS aid ,a.title,a.sort_order,a.status,c.name AS cname")->from("x_article a")->leftJoin("x_category c","a.cid = c.id")->all();
+        //print_r($result);exit();
         $paginaton = new Pagination(['totalCount' => count($result) , 'pageSize' => 10]);
         //print_r($result); exit();
         return $this->render('index',['result' => $result , 'pagination' => $paginaton,]);

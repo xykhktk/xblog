@@ -23,7 +23,7 @@ class SettingController extends  Controller
             $model->description = Yii::$app->request->post('description','');
             $model->copyright = Yii::$app->request->post('copyright','');  md，我自己保存不行，非要用load 才行*/
             $model->save();
-            echo  Yii::$app->request->post('name','');
+            //echo  Yii::$app->request->post('name','');
             return $this->redirect(['setting/index']);
         }else{
             $currentSetting = Setting::find()->where(['id' => 1])->asArray()->one();

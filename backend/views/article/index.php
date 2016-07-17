@@ -51,13 +51,13 @@ $categorys = Category::getParent(); //注意模型的静态可以在页面中使
         <tbody>
         <?php foreach($result as $value){?>
             <tr>
-                <td class="text-center"><input type="checkbox" name="selected[]" value="<?=$value['id']?>"></td>
+                <td class="text-center"><input type="checkbox" name="selected[]" value="<?=$value['aid']?>"></td>
                 <td><?=$value['title']?></td>
                 <!--<td><?/*=isset($categorys[$value['cid']]) ? $categorys[$value['cid']]['name'] : '无';*/?></td>-->
-                <td><?=$value['name']?></td>
+                <td><?=$value['cname']?></td>
                 <td><?=$value['sort_order']?></td>
                 <td><?=$value['status'] == 1 ? '开启' : '禁用';?></td>
-                <td><a href="<?=Url::to(['edit' , 'id' => $value['id']])?>" title="编辑" class="data_op data_edit">编辑</a> | <a href="javascript:void(0);" title="删除" class="data_op data_delete">删除</a></td>
+                <td><a href="<?=Url::to(['edit' , 'id' => $value['aid']])?>" title="编辑" class="data_op data_edit">编辑</a> | <a href="javascript:void(0);" title="删除" class="data_op data_delete">删除</a></td>
             </tr>
         <?php }?>
         </tbody>
