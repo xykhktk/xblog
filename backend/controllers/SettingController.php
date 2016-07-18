@@ -8,11 +8,25 @@
 
 namespace backend\controllers;
 use yii\web\Controller;
+use backend\controllers\BaseController;
 use common\models\Setting;
 use Yii;
 
-class SettingController extends  Controller
+class SettingController extends BaseController
 {
+
+    /*public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) { //先让CommonController的beforeAction执行
+            $session = Yii::$app->session->get('backend_admin_username');
+
+            if(!isset($session) || empty($session)){
+                return Yii::$app->response->redirect(['site/login']);
+            }
+            return true;
+        }
+        return false;
+    }*/
 
     public function actionIndex(){
 

@@ -44,14 +44,14 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
+        public function actions()
+        {
+            return [
+                'error' => [
+                    'class' => 'yii\web\ErrorAction',
+                ],
+            ];
+        }
 
     public function actionIndex()
     {
@@ -75,12 +75,31 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+
+        /*$model = new LoginForm();
+
+        $username = Yii::$app->request->post('username');
+        $password =  Yii::$app->request->post('password_hash');
+        print_r($username);print_r($password);print_r("out");
+
+        if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->login()){
+            return $this->redirect('index');
+        }
+        return $this->render('login',['model' => $model]);*/
     }
 
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
+        $session = Yii::$app->session;
+        $session->remove('backend_admin_username');
+        $session->destroy();
         return $this->goHome();
+
+        /*$model = new LoginForm();
+        $model->logout();
+        return $this->redirect('index');*/
+
     }
 }

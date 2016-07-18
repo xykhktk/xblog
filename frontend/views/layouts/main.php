@@ -28,11 +28,15 @@ use yii\helpers\Url;
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
-                    <form class="form-group pull-left" onsubmit="return false;" >
+                   <!-- <form class="form-group pull-left" onsubmit="return false;" >
                         <input name="search" value="" id="search-content" type="text" class="form-control" placeholder="站内搜索">
                         <a href="javascript:void(0)" id="searching"><i class="glyphicon glyphicon-search icon-white"></i></a>
-                    </form>
-                    <li class="active"><a href="<?=Url::base(true)?>">首页</a></li>
+                    </form>-->
+                   <!-- <li class="active"><a href="<?/*=Url::base(true)*/?>">首页</a></li>-->
+                    <a class="navbar-brand" href="<?=Url::base(true)?>">撸码文章</a>
+                    <a class="navbar-brand" href="<?=Url::base(true)?>">闲书笔记</a>
+                    <a class="navbar-brand" href="<?=Url::base(true)?>">关于我</a>
+                </ul>
     </nav>
     <?=$content?>
 </div>
@@ -46,40 +50,5 @@ use yii\helpers\Url;
 <link href="<?=Url::base(true)?>/css/site.css" rel="stylesheet" />
 <link href="<?=Url::base(true)?>/css/style.css" rel="stylesheet" />
 <script src="<?=Url::base(true)?>/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript">
-    var globalSearchUrl = '<?=Url::to(['site/search'])?>';   //js里的php
-    $("#searching").click(function(){
-        search($(this).siblings("input").val());
-    });
-
-    $("#search-content").keyup(function(e){
-        if(e.keyCode == 13){
-            search($(this).val());
-        }
-    });
-
-    function search(search){
-        search = $.trim(search);
-        if(search == ""){
-            alert("请输入搜索的内容");
-            return false;
-        }
-
-        if(search.length > 255){
-            alert("输入搜索的内容过长");
-            return false;
-        }
-
-        var searchUrl = '';
-        if(globalSearchUrl.indexOf("?") == -1){
-            searchUrl = globalSearchUrl + '?&search=' + search;
-        }else{
-            searchUrl = globalSearchUrl + '&search=' + search;
-        }
-
-        window.location.href = searchUrl;
-
-    }
-</script>
 </body>
 </html>

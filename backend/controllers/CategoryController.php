@@ -6,12 +6,13 @@
  * Time: 21:39
  */
 namespace  backend\controllers;
+use backend\controllers\BaseController;
 use yii\web\Controller;
 use yii\data\Pagination;
 use common\models\Category;
 use Yii;
 
-class CategoryController extends Controller{
+class CategoryController extends BaseController{
 
     public function actionIndex(){
         $model = Category::find();

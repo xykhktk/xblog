@@ -291,7 +291,12 @@ $this->registerJs('jQuery(document).ready(function() {
 
                         <img alt="" src="<?=Url::base().'/statics/image/avatar1_small.jpg'?>">
 
+                        <?php
+                            $session = Yii::$app->session->get('backend_admin_username');
+                            if(isset($session) || !empty($session)){   ?>
                         <span class="username" user-id="<?=Yii::$app->user->identity->id ?>"> <?=Yii::$app->user->identity->username ?> </span>
+                        <?php  } ?>
+
 
                         <i class="icon-angle-down"></i>
 

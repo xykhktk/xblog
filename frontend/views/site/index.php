@@ -5,8 +5,29 @@ use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 ?>
-<div class="container">
+<style>
+    .mya {
+        background: #eee;
+        padding: 1px 4px;
+        margin: 0 4px 4px 0;
+        display: inline-block;
+        text-decoration: none;
+        color: #555;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        text-shadow: none !important;
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        border-radius: 0 !important;
+        text-decoration: none;
+    }
+    a, a:focus, a:hover, a:active {
+        outline: 0;
+    }
 
+</style>
+<div class="container">
     <link rel="stylesheet" href="css/article.css" />
     <div class="container">
         <div class="row">
@@ -31,11 +52,13 @@ $this->title = 'My Yii Application';
                                 <a href="<?=Url::to(['article','id'=>$a['id']])?>"><?=$a['title']?></a>
                             </h3>
                             <div class="thread-meta">
-                                <?=$a['author']?>&nbsp;
-                                <ul class="blog-category">
-                                    <li>分类：&nbsp;<?= isset($categroy[$a['cid']])?$categroy[$a['cid']]['name']:'无'?>&nbsp;&nbsp;&nbsp;</li>
-                                    <li>浏览次数：<?=$a['count']?></li>
-                                </ul>
+                               <!-- <?/*=$a['author']*/?>&nbsp;-->
+                                分类：<?= isset($categroy[$a['cid']])?$categroy[$a['cid']]['name']:'无'?>&nbsp;&nbsp;&nbsp;
+                                浏览次数：<?=$a['count']?>
+                                <!--<ul class="blog-category">
+                                    <li>分类：<?/*= isset($categroy[$a['cid']])?$categroy[$a['cid']]['name']:'无'*/?>&nbsp;&nbsp;&nbsp;</li>
+                                    <li>浏览次数：<?/*=$a['count']*/?></li>
+                                </ul>-->
                             </div>
                         </header>
                         <div class="clearfix"></div>
@@ -48,7 +71,6 @@ $this->title = 'My Yii Application';
                     </article>
                      <?php } ?>
                     <!-- 分页数据  -->
-
                     <div class="pagination">
                         <?= \yii\widgets\LinkPager::widget([
                             'pagination' => $pagination,
@@ -60,15 +82,28 @@ $this->title = 'My Yii Application';
 
             </div>
             <aside class="col-md-3 sidebar">
+
+                <!--搜索-->
+                <section class="visitor card">
+                    <div class="input-group">
+                        <input class="form-control" id="search-content" placeholder="站内搜索" type="text">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="searching" type="button">
+                                <span class="glyphicon glyphicon-search" ></span>
+                            </button>
+                        </span>
+                    </div>
+                </section>
+
                 <section class="visitor card">
                     <div class="top">
                         <div class="user-avatar">
                             <a href="javascript:;" class="avatar avatar-50">
-                                <img alt="Smister" src="http://www.smister.com/mrs.jpg">
+                                <img alt="" src="<?=Url::base().'/images/BTNAvatar.jpg'?>">
                             </a>
                         </div>
                         <h4 class="name">Gkanon</h4>
-                        <a href="javascript:;">一步一脚印 ，贵在坚持..</a>
+                        <a href="javascript:;">才一级的MK？要多练级。</a>
                     </div>
                 </section>
                 <section class="card">
@@ -80,7 +115,7 @@ $this->title = 'My Yii Application';
                                 $url = Url::base(true);
                             }else{
                                 if($i['pid'] == 0){
-                                    $url = 'jyavascript:void(0)';
+                                    $url = 'javascript:void(0)';
                                 }else{
                                     $url = Url::to(['index','cid'=>$cid]);
                                 }
@@ -93,6 +128,31 @@ $this->title = 'My Yii Application';
 
                     </ul>
                 </section>
+
+                <section class="card">
+                    <h4>标签</h4>
+                    <div class="" style="link{text-decoration:none;}">
+                        <a href="javascript:void(0)"  style='text-decoration:none;' class="mya glyphicon glyphicon-tag">123</a>
+                        <a href="javascript:void(0)"  style='text-decoration:none;' class="mya">123</a>
+                        <a href="javascript:void(0)" style='text-decoration:none;'> <span class="label label-default glyphicon glyphicon-tag">读书笔记</span></a>&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-default btn-xs" style='text-decoration:none;'> <span class="glyphicon glyphicon-tag">读书笔记</span></a>&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-default btn-xs" style="padding-top: 4px">读书笔记(IT)</a>&nbsp;
+                        <span class="glyphicon  glyphicon-tag" style="margin-top: 4px;" aria-hidden="true">源码阅读</span>&nbsp;
+                        <span class="glyphicon  glyphicon-tag btn-default btn-xs" style="margin-top: 4px" aria-hidden="true">源码阅读</span>&nbsp;
+                        <button type="button" class="btn btn-default btn-xs" style="margin-top: 4px" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-tag" aria-hidden="true">源码阅读</span>
+                        </button>&nbsp;
+                    </div>
+                </section>
+
+                <ul class="unstyled inline blog-tags">
+                    <li>
+                        <i class="icon-tags"></i>
+                        <a href="#">Technology</a>
+                        <a href="#">Education</a>
+                        <a href="#">Internet</a>
+                    </li>
+                </ul>
 
                 <section class="card">
                     <h4>热门文章</h4>
@@ -108,3 +168,38 @@ $this->title = 'My Yii Application';
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var globalSearchUrl = '<?=Url::to(['site/search'])?>';   //js里的php
+    $("#searching").click(function(){
+        search($(this).parent().siblings("input").val());
+    });
+
+    $("#search-content").keyup(function(e){
+        if(e.keyCode == 13){
+            search($(this).val());
+        }
+    });
+
+    function search(search){
+        search = $.trim(search);
+        if(search == ""){
+            alert("请输入搜索的内容");
+            return false;
+        }
+
+        if(search.length > 255){
+            alert("输入搜索的内容过长");
+            return false;
+        }
+
+        var searchUrl = '';
+        if(globalSearchUrl.indexOf("?") == -1){
+            searchUrl = globalSearchUrl + '?&search=' + search;
+        }else{
+            searchUrl = globalSearchUrl + '&search=' + search;
+        }
+
+        window.location.href = searchUrl;
+
+    }
+</script>

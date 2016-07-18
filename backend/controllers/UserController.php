@@ -2,9 +2,9 @@
 
 namespace backend\controllers;
 use yii\web\Controller;
+use backend\controllers\BaseController;
 
-
-class UserController extends Controller
+class UserController extends BaseController
 {
     public function actionUser()
     {

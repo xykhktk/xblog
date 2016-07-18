@@ -7,13 +7,13 @@
  */
 
 namespace backend\controllers;
-
+use backend\controllers\BaseController;
 use yii\web\Controller;
 use common\models\ArticleComment;
 use yii\data\Pagination;
 use Yii;
 
-class CommentController extends Controller
+class CommentController extends BaseController
 {
     public function actionIndex(){
         $model = ArticleComment::find()->asArray()->all();

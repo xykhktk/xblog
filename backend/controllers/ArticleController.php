@@ -15,8 +15,10 @@ use yii\data\Pagination;
 use Yii;
 use yii\imagine\Image;
 use common\models\Category;
+use backend\controllers\BaseController;
 
-class ArticleController extends Controller
+
+class ArticleController extends BaseController
 {
 
     public function actions() {
