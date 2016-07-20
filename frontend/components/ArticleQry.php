@@ -130,4 +130,35 @@ class ArticleQry extends BaseDb
         return Article::find()->where(['id' => $id,'status' => 1])->one();
     }
 
+    /**
+     * 这个tag下的所有文章
+     * @param $id
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public function countByTag($tid){
+        //return ArticleTags::find()->where(['tid' => $tid,'status' => 1])->one();s
+        return (new \yii\db\Query())->select('*')->from('x_article_tags at')->leftJoin('x_article a','at.aid = a.id')
+            ->where(['at.tid'=>$tid,'a.status' => 1])->count();
+    }
+
+
+    public function getArticlesByTag($tid = 0,$offset = 0,$limit = 10){
+        $condition = [];
+        if($tid > 0){
+            $condition = ['tid' => $tid];
+        }
+
+        $result = (new \yii\db\Query())->select('a.*')->from('x_article_tags at')->leftJoin('x_article a','at.aid = a.id')
+            ->where(['at.tid'=>$tid,'a.status' => 1])->offset($offset)->limit($limit)->all();
+        foreach ($result as $k=>$v){
+            $result[$k]['tags'] = (new \yii\db\Query())->select("at.aid,at.tid,t.tagname")->from('x_article_tags at')
+                ->leftJoin('x_tags t','at.tid = t.id')->where(['at.aid' => $v['id']])->all();
+        }
+        return $result;
+        /* return Article::find()->select('id,cid,title,description,author,count,update_date')
+             ->where($condition)->andWhere(['status' => 1])->offset($offset)->limit($limit)->asArray()->all();*/
+    }
+
+
+
 }

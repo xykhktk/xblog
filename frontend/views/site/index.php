@@ -37,6 +37,8 @@ $this->title = 'My Yii Application';
                         <a href="<?=Url::base(true)?>">首页</a>
                         <?php if(!empty($currentCate) && $currentCate['pid'] != -1) echo '&gt&gt'.$currentCate['name'];?>
                         <?php if(!empty($search) ) echo '&gt&gt'.$search;?>
+                        <?php if(!empty($currenttag) ) echo '&gt&gt'.$currenttag;?>
+
                     </article>
                     <?php  foreach ($article as $a){
                         $date = explode('-',date(('Y-m-d'), $a['update_date']));
@@ -57,7 +59,7 @@ $this->title = 'My Yii Application';
                                 <?php if(count($a['tags']) > 0){ ?>
                                     标签：
                                     <?php foreach ($a['tags'] as $k=>$v){?>
-                                    <a href="javascript:void(0)" class="btn-default" style="text-decoration:none;background-color: #eeeeee "><?= $v['tagname']?></a>
+                                    <a href="<?=Url::to(['index','tid'=>$v['tid']])?>" class="btn-default" style="text-decoration:none;background-color: #eeeeee "><?= $v['tagname']?></a>
                                 <?php  }
                                 } ?>
                                 &nbsp;&nbsp;&nbsp;浏览次数：<?=$a['count']?>
@@ -139,7 +141,7 @@ $this->title = 'My Yii Application';
                     <h4>标签</h4>
                     <div class="" style="link{text-decoration:none;}">
                         <?php foreach ($tags as $tag){ ?>
-                        <span style="display: inline-block;background-color: #eeeeee;margin: 4px;"><a href="javascript:void(0)" style="text-decoration:none;"><?= $tag['tagname']?></a></span>
+                        <span style="display: inline-block;background-color: #eeeeee;margin: 4px;"><a href="<?=Url::to(['index','tid'=>$tag['id']])?>" style="text-decoration:none;"><?= $tag['tagname']?></a></span>
                         <? } ?>
                         <!--<a href="javascript:void(0)"  style='text-decoration:none;' class="mya glyphicon glyphicon-tag">123</a>
                         <a href="javascript:void(0)"  style='text-decoration:none;' class="mya">123</a>

@@ -18,9 +18,9 @@ class SiteController extends Controller
 {
     public $enableCsrfValidation = false;   //接收ajax请求，需要关闭csrf
 
-    public function actionIndex($cid = 0)
+    public function actionIndex($cid = 0,$tid = 0)
     {
-       /* \frontend\components\ArticleQry::getInstance()->getA();
+        /* \frontend\components\ArticleQry::getInstance()->getA();
         \frontend\components\ArticleQry::getInstance()->getA();
         \frontend\components\ArticleQry::getInstance()->getA(); 测试单例，应该是3个相同的数字？ */
         //\frontend\components\CategroyQry::getInstance()->getCategroys();
@@ -30,21 +30,32 @@ class SiteController extends Controller
         //print_r(ArticleQry::getInstance()->getHotArticle());
         $categroy = CategroyQry::getInstance()->getCategroys();
         $cid = (int)$cid;
+        $tid = (int)$tid;
         $currentCate = [];
+        $currenttag = '';
         if($cid != 0 && !isset($categroy[$cid])){   //大于0却没有分类
             $cid = 0;
         }else{
             $currentCate = $categroy[$cid];
         }
 
-        $pagination = new Pagination(['totalCount' => ArticleQry::getInstance()->count() , 'pageSize' => 10]);
-        $article = ArticleQry::getInstance()->getArticles($cid,$pagination->offset,$pagination->limit);
+        if ($tid > 0){
+            $pagination = new Pagination(['totalCount' => ArticleQry::getInstance()->countByTag($tid) , 'pageSize' => 10]);
+            $article = ArticleQry::getInstance()->getArticlesByTag($tid,$pagination->offset,$pagination->limit);
+            $currenttag = Tags::find()->where(['id'=> $tid])->one();
+            $currenttag = $currenttag['tagname'];
+        }else{
+            $pagination = new Pagination(['totalCount' => ArticleQry::getInstance()->count($cid) , 'pageSize' => 10]);
+            $article = ArticleQry::getInstance()->getArticles($cid,$pagination->offset,$pagination->limit);
+        }
+
         //print_r($article);
         return $this->render('index',[
             'categroy' => $categroy,
             'pagination' => $pagination,
             'article' => $article,
             'currentCate' => $currentCate,
+            'currenttag' => $currenttag,
             'hotArticle' => ArticleQry::getInstance()->getHotArticle(),
             'tags' => Tags::find()->asArray()->all()
         ]);
