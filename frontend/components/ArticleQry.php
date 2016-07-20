@@ -12,6 +12,7 @@ use frontend\components\BaseDb;
 use common\models\Article;
 use Yii;
 use yii\web\Cookie;
+use common\models\ArticleTags;
 
 class ArticleQry extends BaseDb
 {
@@ -43,8 +44,16 @@ class ArticleQry extends BaseDb
         if($cid > 0){
             $condition = ['cid' => $cid];
         }
-        return Article::find()->select('id,cid,title,description,author,count,update_date')
+
+        $result = Article::find()->select('id,cid,title,description,author,count,update_date')
             ->where($condition)->andWhere(['status' => 1])->offset($offset)->limit($limit)->asArray()->all();
+        foreach ($result as $k=>$v){
+            $result[$k]['tags'] = (new \yii\db\Query())->select("at.aid,at.tid,t.tagname")->from('x_article_tags at')
+                ->leftJoin('x_tags t','at.tid = t.id')->where(['at.aid' => $v['id']])->all();
+        }
+        return $result;
+       /* return Article::find()->select('id,cid,title,description,author,count,update_date')
+            ->where($condition)->andWhere(['status' => 1])->offset($offset)->limit($limit)->asArray()->all();*/
     }
 
     public function getHotArticle($limit = 10){

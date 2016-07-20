@@ -54,7 +54,13 @@ $this->title = 'My Yii Application';
                             <div class="thread-meta">
                                <!-- <?/*=$a['author']*/?>&nbsp;-->
                                 分类：<?= isset($categroy[$a['cid']])?$categroy[$a['cid']]['name']:'无'?>&nbsp;&nbsp;&nbsp;
-                                浏览次数：<?=$a['count']?>
+                                <?php if(count($a['tags']) > 0){ ?>
+                                    标签：
+                                    <?php foreach ($a['tags'] as $k=>$v){?>
+                                    <a href="javascript:void(0)" class="btn-default" style="text-decoration:none;background-color: #eeeeee "><?= $v['tagname']?></a>
+                                <?php  }
+                                } ?>
+                                &nbsp;&nbsp;&nbsp;浏览次数：<?=$a['count']?>
                                 <!--<ul class="blog-category">
                                     <li>分类：<?/*= isset($categroy[$a['cid']])?$categroy[$a['cid']]['name']:'无'*/?>&nbsp;&nbsp;&nbsp;</li>
                                     <li>浏览次数：<?/*=$a['count']*/?></li>
@@ -132,7 +138,10 @@ $this->title = 'My Yii Application';
                 <section class="card">
                     <h4>标签</h4>
                     <div class="" style="link{text-decoration:none;}">
-                        <a href="javascript:void(0)"  style='text-decoration:none;' class="mya glyphicon glyphicon-tag">123</a>
+                        <?php foreach ($tags as $tag){ ?>
+                        <span style="display: inline-block;background-color: #eeeeee;margin: 4px;"><a href="javascript:void(0)" style="text-decoration:none;"><?= $tag['tagname']?></a></span>
+                        <? } ?>
+                        <!--<a href="javascript:void(0)"  style='text-decoration:none;' class="mya glyphicon glyphicon-tag">123</a>
                         <a href="javascript:void(0)"  style='text-decoration:none;' class="mya">123</a>
                         <a href="javascript:void(0)" style='text-decoration:none;'> <span class="label label-default glyphicon glyphicon-tag">读书笔记</span></a>&nbsp;
                         <a href="javascript:void(0)" class="btn btn-default btn-xs" style='text-decoration:none;'> <span class="glyphicon glyphicon-tag">读书笔记</span></a>&nbsp;
@@ -141,7 +150,7 @@ $this->title = 'My Yii Application';
                         <span class="glyphicon  glyphicon-tag btn-default btn-xs" style="margin-top: 4px" aria-hidden="true">源码阅读</span>&nbsp;
                         <button type="button" class="btn btn-default btn-xs" style="margin-top: 4px" aria-label="Left Align">
                             <span class="glyphicon glyphicon-tag" aria-hidden="true">源码阅读</span>
-                        </button>&nbsp;
+                        </button>&nbsp;-->
                     </div>
                 </section>
 

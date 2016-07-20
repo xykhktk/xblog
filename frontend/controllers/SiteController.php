@@ -9,6 +9,7 @@ use frontend\components\ArticleQry;
 use yii\data\Pagination;
 use frontend\components\CommentQry;
 use frontend\components\SettingQry;
+use common\models\Tags;
 
 /**
  * Site controller
@@ -44,7 +45,8 @@ class SiteController extends Controller
             'pagination' => $pagination,
             'article' => $article,
             'currentCate' => $currentCate,
-            'hotArticle' => ArticleQry::getInstance()->getHotArticle()
+            'hotArticle' => ArticleQry::getInstance()->getHotArticle(),
+            'tags' => Tags::find()->asArray()->all()
         ]);
     }
 
