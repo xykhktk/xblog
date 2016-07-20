@@ -9,13 +9,14 @@
 namespace backend\controllers;
 
 use yii\web\Controller;
-use common\models\Article;
 use xj\uploadify\UploadAction;
 use yii\data\Pagination;
 use Yii;
 use yii\imagine\Image;
 use common\models\Category;
-
+use common\models\Article;
+use common\models\ArticleTags;
+use common\models\Tags;
 
 class ArticleController extends BaseController
 {
@@ -161,12 +162,16 @@ class ArticleController extends BaseController
     public function actionEdit($id){
         $iid = (int)$id;
         $model = Article::findOne($iid);   //注意跟find（）不同
+        $select = Yii::$app->request->post('tagsSelected');
         if($model){
             if( Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()){
+                (new ArticleTags())->updateTag($iid,$select);
                 Yii::$app->session->setFlash('success','编辑文章成功');
                 return $this->redirect(['index']);
             }
-            return $this->render('edit',['model' => $model,'category' => Category::getAllCategorys()]);
+
+            $tags = (new \yii\db\Query())->select('t.*,at.aid,at.tid')->from('x_tags t')->leftJoin('x_article_tags at','t.id = at.tid')->all();
+            return $this->render('edit',['model' => $model,'category' => Category::getAllCategorys(),'tags'=>$tags]);
         }
         //return $this->render('index');    //注意这里是redirect。如果用render，index页面所需要的参数，这里无法提供，就会报错
         return $this->redirect(['index']);

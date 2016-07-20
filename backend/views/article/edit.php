@@ -10,4 +10,4 @@ use yii\widgets\Breadcrumbs;
    ]
 )?>
 
-<?= $this->render('_form',['model' => $model , 'category' =>$category ]) ?>
+<?= $this->render('_form',['model' => $model , 'category' =>$category ,'tags'=>$tags ]) ?>

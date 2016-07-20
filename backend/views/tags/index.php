@@ -16,15 +16,9 @@ use yii\widgets\Breadcrumbs;
 
     <div style="width: 60%">
     <?=Html::beginForm('delete' , 'post' , ['class' => '' , 'id' =>'addForm' ])?>
-        <?php
-        $index = 0;
-        foreach ($tags as $tag){
-            $index = $index + 1 ;?>
-
+        <?php   foreach ($tags as $tag){  ;?>
             <span style="display: inline-block"><input type="checkbox" name="selected[]" value="<?= $tag['id']?>" /><?= $tag['tagname']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-
         <?php } ?>
-
         <div class="form-group">
                 <div style="margin-top:10px" class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1">
                     <button class="btn btn-primary" type="submit">删除标签</button>

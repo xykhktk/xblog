@@ -142,6 +142,16 @@ EOF
     </div>
 
     <div class="form-group">
+        <div style="width: 60%">
+        <?php foreach ($tags as $tag){  ;?>
+            <span style="display: inline-block">
+                <span style="display: inline-block"><input type="checkbox" name="tagsSelected[]"  <?= isset($tag['aid'])? 'checked="checked"':'' ?> value="<?= $tag['id']?>" /><?= $tag['tagname']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </span>
+        <?php } ?>
+        <div>
+    </div>
+
+    <div class="form-group">
         <?=Html::label('内容：' , 'content' , ['class' =>'control-label col-sm-2 col-md-1'])?>
             <?= \cliff363825\kindeditor\KindEditorWidget::widget([
                //'name' => '内容',
