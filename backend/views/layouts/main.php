@@ -424,7 +424,7 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     <i class="icon-cogs"></i>
 
-                    <span class="title">文章和评论管理</span>
+                    <span class="title">文章 | 评论</span>
 
                     <span class="selected"></span>
 
@@ -433,14 +433,6 @@ $this->registerJs('jQuery(document).ready(function() {
                 </a>
 
                 <ul class="sub-menu">
-
-                    <li>
-
-                        <a href="<?=Url::to(['category/index'])?>">
-
-                            文章分类管理</a>
-
-                    </li>
 
                     <li>
 
@@ -455,6 +447,42 @@ $this->registerJs('jQuery(document).ready(function() {
                         <a href="<?=Url::to(['comment/index'])?>">
 
                             评论管理</a>
+
+                    </li>
+
+                </ul>
+
+            </li>
+
+            <li class="">
+
+                <a href="javascript:;">
+
+                    <i class="icon-cogs"></i>
+
+                    <span class="title">分类 | 标签</span>
+
+                    <span class="selected"></span>
+
+                    <span class="arrow open"></span>
+
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+
+                        <a href="<?=Url::to(['category/index'])?>">
+
+                            分类管理</a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="<?=Url::to(['tags/index'])?>">
+
+                            标签管理</a>
 
                     </li>
 

@@ -153,4 +153,10 @@ class SiteController extends Controller
         exit(json_encode(['pagestr' => $str ,'data' => $data,'count' => $commentCount]));
     }
 
+
+    public function actionAboutme()
+    {
+        return $this->render('aboutme');
+    }
+
 }

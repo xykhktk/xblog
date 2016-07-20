@@ -35,7 +35,7 @@ use yii\helpers\Url;
                    <!-- <li class="active"><a href="<?/*=Url::base(true)*/?>">首页</a></li>-->
                     <a class="navbar-brand" href="<?=Url::base(true)?>">撸码文章</a>
                     <a class="navbar-brand" href="<?=Url::base(true)?>">闲书笔记</a>
-                    <a class="navbar-brand" href="<?=Url::base(true)?>">关于我</a>
+                    <a class="navbar-brand" href="<?=Url::to(['site/aboutme'])?>">关于我</a>
                 </ul>
     </nav>
     <?=$content?>
