@@ -16,11 +16,11 @@ use Yii;
 class CommentController extends BaseController
 {
     public function actionIndex(){
-        $model = ArticleComment::find()->asArray()->all();
+        $model = ArticleComment::find()->asArray()->where(['audit_status'=>1])->all();
         $page = new Pagination(['totalCount' => count($model) ,'pageSize' => 20]);
         //print_r($model);
         $model = (new \yii\db\Query())->select("ac.id,ac.name,ac.content,ac.status,ac.date,a.title")->from("x_article_comment ac")
-            ->leftJoin("x_article as a","ac.article_id = a.id")
+            ->leftJoin("x_article as a","ac.article_id = a.id")->where(['audit_status'=>1])
             ->offset($page->offset)->limit($page->limit)->all();
         return $this->render('index',['model' => $model , 'pagination' => $page]);
     }
@@ -60,6 +60,25 @@ class CommentController extends BaseController
             return $this->render('index',['model' => $model , 'pagination' => $page]);
         }
         return $this->redirect(['comment/index']);
+    }
+
+    public function actionAudit(){
+        $model = (new \yii\db\Query())->select("ac.id,ac.name,ac.content,ac.status,ac.date,a.title")->from("x_article_comment ac")
+            ->leftJoin("x_article as a","ac.article_id = a.id")->where(['audit_status'=>0]);
+        $modelCount = clone $model;
+        $page = new Pagination(['totalCount' => $modelCount->count(),'pageSize' =>10]);
+        $model = $model->offset($page->offset)->limit($page->limit)->all();
+        return $this->render('audit',['model' => $model ,'pagination'=> $page]);
+    }
+
+    public function actionPassaudit($id = 0){
+        if($id > 0){
+            $model = ArticleComment::findOne($id);  //$model = ArticleComment::find($id); 这样的$modle没有save.瞎搞！！
+            $model->audit_status = 1;
+            $model->status = 1;
+            $model->save();
+        }
+        return $this->redirect(['comment/audit']);
     }
 
 

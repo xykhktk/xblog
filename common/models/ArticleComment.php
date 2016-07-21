@@ -27,6 +27,7 @@ class ArticleComment extends  ActiveRecord
         //if(parent::beforeSave($insert) && $this->isNewRecord){    //isNewRecord不能写在这，否则在不是新记录时，直接不返回true、
         if(parent::beforeSave($insert)){
             if($this->isNewRecord){
+                $this->audit_status = 0;
                 $this->date = time();
             }
             return true;

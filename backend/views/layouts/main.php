@@ -450,6 +450,14 @@ $this->registerJs('jQuery(document).ready(function() {
 
                     </li>
 
+                    <li>
+
+                        <a href="<?=Url::to(['comment/audit'])?>">
+
+                            评论审核</a>
+
+                    </li>
+
                 </ul>
 
             </li>

@@ -33,8 +33,8 @@ use yii\helpers\Url;
                         <a href="javascript:void(0)" id="searching"><i class="glyphicon glyphicon-search icon-white"></i></a>
                     </form>-->
                    <!-- <li class="active"><a href="<?/*=Url::base(true)*/?>">首页</a></li>-->
-                    <a class="navbar-brand" href="<?=Url::base(true)?>">撸码文章</a>
-                    <a class="navbar-brand" href="<?=Url::base(true)?>">闲书笔记</a>
+                   <!-- <a class="navbar-brand" href="<?/*=Url::base(true)*/?>">撸码文章</a>
+                    <a class="navbar-brand" href="<?/*=Url::base(true)*/?>">闲书笔记</a>-->
                     <a class="navbar-brand" href="<?=Url::to(['site/aboutme'])?>">关于我</a>
                 </ul>
     </nav>

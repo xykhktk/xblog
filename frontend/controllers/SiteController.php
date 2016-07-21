@@ -148,7 +148,7 @@ class SiteController extends Controller
     public function actionRecommentlist(){
         $articleid = Yii::$app->request->get('article_id',0);   //??
         $commentCount = CommentQry::getInstance()->count($articleid);
-        $pagination = new Pagination(['totalCount' => $commentCount,'pageSize' => 3]);
+        $pagination = new Pagination(['totalCount' => $commentCount,'pageSize' => 10]);
         $data =  CommentQry::getInstance()->articleCommentlist($articleid ,$pagination->offset,$pagination->limit);
         //print_r($data);
 

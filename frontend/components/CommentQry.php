@@ -47,7 +47,7 @@ class CommentQry extends BaseDb
      */
     public function articleCommentlist($id,$offset = 0,$limit = 10){
         $result = [];
-        $comment =  ArticleComment::find()->where(['article_id' => $id ,'pid' => 0 ,'status' => 1])->offset($offset)->limit($limit)->asArray()->all();
+        $comment =  ArticleComment::find()->where(['article_id' => $id ,'pid' => 0 ,'status' => 1,'audit_status' => 1])->offset($offset)->limit($limit)->asArray()->all();
         $commentId = [];
         foreach ($comment as $k=>$v){
             $result[$v['id']] = $v;
@@ -55,7 +55,7 @@ class CommentQry extends BaseDb
             $result[$v['id']]['date'] = date('Y-m-d H:i:s',$v['date']);
             $commentId[] = $v['id'];  //一级评论id
         }
-        $childComment = ArticleComment::find()->where(['article_id' => $id,'status' => 1 ])->andWhere(['in' , 'pid' ,$commentId ])->asArray()->all();
+        $childComment = ArticleComment::find()->where(['article_id' => $id,'status' => 1,'audit_status' => 1 ])->andWhere(['in' , 'pid' ,$commentId ])->asArray()->all();
         foreach ($childComment as $v) {
             $v['id'] = $v['pid'] ;
             $v['date']=  date('Y-m-d H:i:s',$v['date']);
@@ -71,7 +71,7 @@ class CommentQry extends BaseDb
      * @return int|string
      */
     public function count($articleid){
-        return ArticleComment::find()->where(['article_id' => $articleid ,'pid' => 0 ,'status' => 1])->count();
+        return ArticleComment::find()->where(['article_id' => $articleid ,'pid' => 0 ,'status' => 1,'audit_status' => 1])->count();
     }
 
     /**

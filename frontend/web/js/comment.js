@@ -77,6 +77,7 @@ function recomment(data , obj){
                 }
                $("#name").val('');
                $("#commentcontent").val('');  //情况数据
+               alert('回复发送成功，需管理员审核后才能显示。');
             }else{
                 alert(jsonData.msg);
             }

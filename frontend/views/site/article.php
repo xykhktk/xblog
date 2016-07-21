@@ -72,16 +72,16 @@ use yii\helpers\Url;
                                     </div>
                                     <!-- 用户评论列表 -->
                                     <div class="ds-comments-info">
-                                        <div class="ds-sort">
+                                       <!--<div class="ds-sort">
                                             <a class="ds-order-desc ds-current" data="DESC">最新</a>
                                         </div>
                                         <ul class="ds-comments-tabs">
                                             <li class="ds-tab">
                                                 <a href="javascript:void(0);" class="ds-comments-tab-duoshuo ds-current">
-                                                    <span class="ds-highlight" id="recomment-count">2</span>条评论
+                                                   <span class="ds-highlight" id="recomment-count">-</span>条评论
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul>-->
                                     </div>
                                     <ul id="comments-list" class="ds-comments">
                                         <!--<li class="ds-post">
