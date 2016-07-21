@@ -170,7 +170,12 @@ class ArticleController extends BaseController
                 return $this->redirect(['index']);
             }
 
-            $tags = (new \yii\db\Query())->select('t.*,at.aid,at.tid')->from('x_tags t')->leftJoin('x_article_tags at','t.id = at.tid')->all();
+            //select * from x_tags t left join (select * from x_article_tags  where at.aid = '{$id}') a on t.id = a.tid
+            $articletags = (new \yii\db\Query())->select("aid,tid")->from('x_article_tags')->where(['aid' => $id]);
+            $tags = (new \yii\db\Query())->select("*")->from("x_tags t")->leftJoin(['a' => $articletags ], 'a.tid = t.id')->all();
+
+            /*$tags = (new \yii\db\Query())->select('t.*,at.aid,at.tid')->from('x_tags t')
+                ->leftJoin('x_article_tags at','t.id = at.tid')->all();*/
             return $this->render('edit',['model' => $model,'category' => Category::getAllCategorys(),'tags'=>$tags]);
         }
         //return $this->render('index');    //注意这里是redirect。如果用render，index页面所需要的参数，这里无法提供，就会报错

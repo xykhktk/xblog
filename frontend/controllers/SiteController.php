@@ -81,7 +81,9 @@ class SiteController extends Controller
         if($id > 0){
             $article = ArticleQry::getInstance()->getActicle($id);
             ArticleQry::getInstance()->incrArticle($id);
-            return $this->render('article',[ 'article' => $article,]);
+            $tags = (new \yii\db\Query())->select("*")->from("x_article_tags a")->leftJoin("x_tags t","a.tid = t.id")
+                ->where(['a.aid' => $id])->all();
+            return $this->render('article',[ 'article' => $article,'tags' => $tags]);
         }
         return $this->redirect(['site/index']);
     }

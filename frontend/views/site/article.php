@@ -25,7 +25,14 @@ use yii\helpers\Url;
                             <header class="page-header with-author">
                                 <h2 style="padding-right:30px;"><?=$article['title']?></h2>
                                 <div class="thread-meta">
-                                    <span class="article-info">作者：<?=$article['author']?></span>
+                                    <!--<span class="article-info">作者：<?/*=$article['author']*/?></span>-->
+                                    <?php    if(count($tags) > 0){ ?>
+                                        <span class="article-info">标签：</span>
+                                        <?php    foreach ($tags as $k=>$v) { ?>
+                                        <a href="<?=Url::to(['index','tid'=>$v['tid']])?>" class="btn-default btn-xs" style="text-decoration:none;background-color: #eeeeee "><?= $v['tagname']?></a>
+                                    <?php }
+                                        } ?>
+
                                     <span class="article-info">&nbsp;更新时间：<time><?=date('Y-m-d',$article['update_date'])?></time></span>
                                     <span class="article-info">&nbsp;浏览次数：<?=$article['count']?></span>
                                 </div>
