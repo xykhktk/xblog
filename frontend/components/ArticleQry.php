@@ -79,8 +79,14 @@ class ArticleQry extends BaseDb
      * @return array|\yii\db\ActiveRecord[]
      */
     public function getLikeArticle($title ,$offset = 0,$limit = 10 ){
-        return Article::find()->select('id,cid,title,description,author,count,update_date')
+        $result = Article::find()->select('id,cid,title,description,author,count,update_date')
             ->where(['status'=> 1])->andWhere(['like','title',$title])->limit($limit)->offset($offset)->asArray()->all();
+        foreach ($result as $k=>$v){
+            $result[$k]['tags'] = (new \yii\db\Query())->select("at.aid,at.tid,t.tagname")->from('x_article_tags at')
+                ->leftJoin('x_tags t','at.tid = t.id')->where(['at.aid' => $v['id']])->all();
+        }
+        return $result;
+
     }
 
     public function getActicle($id){

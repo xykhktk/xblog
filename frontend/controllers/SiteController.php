@@ -96,15 +96,17 @@ class SiteController extends Controller
         //print_r(ArticleQry::getInstance()->getLikeArticleCount($search));
         $count = ArticleQry::getInstance()->getLikeArticleCount($search);
         //print_r(ArticleQry::getInstance()->getLikeArticle($search));
-        $article = ArticleQry::getInstance()->getLikeArticle($search);
         $pagination = new Pagination(['totalCount'=>$count,'pageSize'=> 10 ]);
+        $article = ArticleQry::getInstance()->getLikeArticle($search,$pagination->offset,$pagination->limit);
+
         $categroy = CategroyQry::getInstance()->getCategroys();
         return $this->render('index',[
             'categroy' => $categroy,
             'article' => $article,
             'search' => $search,
             'pagination' => $pagination,
-            'hotArticle' => ArticleQry::getInstance()->getHotArticle()
+            'hotArticle' => ArticleQry::getInstance()->getHotArticle(),
+            'tags' => Tags::find()->asArray()->all()
         ]);
         //return $this->render('article');
     }
